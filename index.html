@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creations | Link Hub</title>
+    <style>
+        :root {
+            --primary: #3b82f6;
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #38bdf8;
+        }
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 3rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        h1 {
+            font-size: 3rem;
+            margin: 0 0 0.5rem 0;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            background: linear-gradient(90deg, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        p.subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin: 0;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            width: 100%;
+            max-width: 1100px;
+        }
+        .card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 2rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            border: 1px solid #334155;
+            position: relative;
+            overflow: hidden;
+        }
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #38bdf8, #818cf8);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+            border-color: #475569;
+        }
+        .card:hover::before {
+            opacity: 1;
+        }
+        .card h2 {
+            margin: 0 0 1.5rem 0;
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #e2e8f0;
+        }
+        .qr-wrapper {
+            background: #ffffff;
+            padding: 12px;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .qr-wrapper img {
+            display: block;
+            border-radius: 4px;
+        }
+        a.button {
+            background-color: rgba(59, 130, 246, 0.1);
+            color: var(--accent);
+            text-decoration: none;
+            padding: 0.85rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            width: 100%;
+            box-sizing: border-box;
+            transition: all 0.2s ease;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            margin-bottom: 1rem;
+        }
+        a.button:hover {
+            background-color: var(--primary);
+            color: #ffffff;
+            border-color: var(--primary);
+        }
+        .url-text {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            word-break: break-all;
+            line-height: 1.4;
+            padding: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Creations</h1>
+        <p class="subtitle">Your Centralized Hub & QR Code Dashboard</p>
+    </div>
+    
+    <div class="grid">
+        <!-- Card 1 -->
+        <div class="card">
+            <h2>Prasnt Studio</h2>
+            <div class="qr-wrapper">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://tzprasantofficial-ai.github.io/-PRASNTSTUDIO-/" alt="QR Code">
+            </div>
+            <a href="https://tzprasantofficial-ai.github.io/-PRASNTSTUDIO-/" class="button" target="_blank">Open Website</a>
+            <div class="url-text">https://tzprasantofficial-ai.github.io/-PRASNTSTUDIO-/</div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="card">
+            <h2>U-Design</h2>
+            <div class="qr-wrapper">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://udesign999-bot.github.io/" alt="QR Code">
+            </div>
+            <a href="https://udesign999-bot.github.io/" class="button" target="_blank">Open Website</a>
+            <div class="url-text">https://udesign999-bot.github.io/</div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="card">
+            <h2>Prasnt Web Bio</h2>
+            <div class="qr-wrapper">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://tzprasantofficial-ai.github.io/-Prasant-/" alt="QR Code">
+            </div>
+            <a href="https://tzprasantofficial-ai.github.io/-Prasant-/" class="button" target="_blank">Open Website</a>
+            <div class="url-text">https://tzprasantofficial-ai.github.io/-Prasant-/</div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="card">
+            <h2>Prasnt Website</h2>
+            <div class="qr-wrapper">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://prasant-studio.ai.studio/" alt="QR Code">
+            </div>
+            <a href="https://prasant-studio.ai.studio/" class="button" target="_blank">Open Website</a>
+            <div class="url-text">https://prasant-studio.ai.studio/</div>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="card">
+            <h2>Prasnt Checklist</h2>
+            <div class="qr-wrapper">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://udesign999-bot.github.io/-U-Design-Checklist-/" alt="QR Code">
+            </div>
+            <a href="https://udesign999-bot.github.io/-U-Design-Checklist-/" class="button" target="_blank">Open Website</a>
+            <div class="url-text">https://udesign999-bot.github.io/-U-Design-Checklist-/</div>
+        </div>
+    </div>
+</body>
+</html>

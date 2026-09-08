@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Site Index — Prasant</title>
 <meta name="description" content="Every website built across the Aakriti Marketing, U-Design and Prasant accounts. Scan, open or copy any link.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
 <style>
 :root{
   --paper:#EDEFF6;
@@ -165,6 +164,15 @@ main{padding:26px 0 70px}
   padding:12px 14px;font-family:var(--mono);font-size:12.5px;overflow-x:auto;white-space:pre;
 }
 .snippet.show{display:block}
+.adder-actions{margin-top:12px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.dl{
+  font:inherit;font-size:14px;font-weight:600;cursor:pointer;color:#fff;
+  background:var(--ink);border:0;border-radius:8px;padding:10px 16px;
+}
+.dl:hover{background:#2A3350}
+.dl:focus-visible{outline:2px solid var(--business);outline-offset:2px}
+.dl[data-done="1"]{background:var(--work)}
+#dl-note{font-size:13px;color:var(--ink-2)}
 
 /* ---------- lightbox ---------- */
 .lightbox{
@@ -204,8 +212,8 @@ footer code{font-family:var(--mono);font-size:12.5px;background:var(--surface);p
       <h1>Every site I have built, in one place</h1>
       <p>Scan the code to open a site on your phone, tap the button to open it here, or copy the plain link to paste anywhere.</p>
       <div class="stat">
-        <span><b id="stat-total">0</b> sites</span><span>·</span>
-        <span id="stat-mix"></span><span>·</span>
+        <span><b id="stat-total">21</b> sites</span><span>·</span>
+        <span id="stat-mix"><b>13</b> business · <b>6</b> work · <b>2</b> personal</span><span>·</span>
         <span>last updated <b>September 2026</b></span>
       </div>
     </div>
@@ -219,8 +227,8 @@ footer code{font-family:var(--mono);font-size:12.5px;background:var(--surface);p
 <div class="controls">
   <div class="wrap controls-in">
     <label class="search">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-      <input id="q" type="search" placeholder="Search by name or link" aria-label="Search sites">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
+      <input id="q" type="search" placeholder="Search by name or link" aria-label="Search sites" value="">
     </label>
     <div class="chips" id="chips" role="group" aria-label="Filter by category">
       <button class="chip" data-cat="all" aria-pressed="true">All</button>
@@ -235,25 +243,29 @@ footer code{font-family:var(--mono);font-size:12.5px;background:var(--surface);p
   <details class="adder">
     <summary>Add a new site</summary>
     <div class="adder-body">
-      <p>Fill this in to preview the card straight away. It also writes the exact line to paste into the <code>SITES</code> list near the top of this file, so the site is there permanently next time you open it.</p>
+      <p>Fill this in to see the card straight away. Because the page is hosted on GitHub, the new site only becomes permanent once the file itself is updated — so use <b>Download updated index.html</b> below and upload that file back to your repository. The line of code is shown too, if you would rather paste it in by hand.</p>
       <div class="fields">
-        <input id="add-name" type="text" placeholder="Site name" aria-label="Site name">
-        <input id="add-url" type="url" placeholder="https://…" aria-label="Site link">
+        <input id="add-name" type="text" placeholder="Site name" aria-label="Site name" value="">
+        <input id="add-url" type="url" placeholder="https://…" aria-label="Site link" value="">
         <select id="add-cat" aria-label="Category">
           <option>Business</option><option>Work</option><option>Personal</option>
         </select>
         <button id="add-btn" type="button">Add site</button>
       </div>
       <div class="snippet" id="snippet"></div>
+      <div class="adder-actions">
+        <button id="dl-btn" type="button" class="dl">Download updated index.html</button>
+        <span id="dl-note">Includes every site currently on this page.</span>
+      </div>
     </div>
   </details>
 
   <div id="list"></div>
-  <div class="empty" id="empty" hidden>Nothing matches that search yet. Try a shorter word, or clear the filter.</div>
+  <div class="empty" id="empty" hidden="">Nothing matches that search yet. Try a shorter word, or clear the filter.</div>
 </main>
 
 <footer class="wrap">
-  To keep this list going, edit the <code>SITES</code> array at the top of the script in this file — one line per site: name, link, category. Codes are drawn in the browser, so a new line is all it takes.
+  To keep this list going, either use the panel above and download the updated file, or edit the <code>SITES</code> array at the top of the script by hand — one line per site: name, category, link. Codes are drawn in the browser, so a new line is all it takes.
 </footer>
 
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Enlarged code">
@@ -271,28 +283,27 @@ footer code{font-family:var(--mono);font-size:12.5px;background:var(--surface);p
    Cards sort themselves A to Z by name, so the order here does not matter.
    ============================================================ */
 const SITES = [
-  { group: "Aakriti Marketing Agency", name: "PPTX Studio",        cat: "Business", url: "https://aakritimarketing.github.io/PPTX-STUDIO/" },
-  { group: "Aakriti Marketing Agency", name: "BalalaHop",          cat: "Work",     url: "https://aakritimarketing.github.io/BalalaHop/" },
-  { group: "Aakriti Marketing Agency", name: "Gesture",            cat: "Work",     url: "https://aakritimarketing.github.io/-Gesture-try/" },
-  { group: "Aakriti Marketing Agency", name: "PDF Converter",      cat: "Business", url: "https://aakritimarketing.github.io/-Converter-/" },
+  { group: "Aakriti Marketing Agency", name: "PPTX Studio", cat: "Business", url: "https://aakritimarketing.github.io/PPTX-STUDIO/" },
+  { group: "Aakriti Marketing Agency", name: "BalalaHop", cat: "Work", url: "https://aakritimarketing.github.io/BalalaHop/" },
+  { group: "Aakriti Marketing Agency", name: "Gesture", cat: "Work", url: "https://aakritimarketing.github.io/-Gesture-try/" },
+  { group: "Aakriti Marketing Agency", name: "PDF Converter", cat: "Business", url: "https://aakritimarketing.github.io/-Converter-/" },
   { group: "Aakriti Marketing Agency", name: "Background Remover", cat: "Business", url: "https://aakritimarketing.github.io/-BG-Remover-/" },
-  { group: "Aakriti Marketing Agency", name: "NFC Read & Write",   cat: "Business", url: "https://aakritimarketing.github.io/NFC-R-W-/" },
-  { group: "Aakriti Marketing Agency", name: "SAS Inventory",      cat: "Business", url: "https://aakritimarketing.github.io/SAS-INVENTERY/" },
-  { group: "Aakriti Marketing Agency", name: "Image to Prompt",    cat: "Business", url: "https://aakritimarketing.github.io/IMAGE2PROMPT/" },
-  { group: "Aakriti Marketing Agency", name: "U-Design CV Builder",cat: "Business", url: "https://aakritimarketing.github.io/U-DESIGN-CV/" },
-
-  { group: "U-Design", name: "Coco Pet Care — pet app",        cat: "Business", url: "https://udesign999-bot.github.io/udesign999-bot.github.io-hamda-/" },
-  { group: "U-Design", name: "Coco Pet Care — presentation",   cat: "Work",     url: "https://udesign999-bot.github.io/-presentation-coco-pet-care-clinic-/" },
-  { group: "U-Design", name: "Coco Pet Care — family vet",     cat: "Business", url: "https://udesign999-bot.github.io/-AlAin-Vet-1-/" },
-  { group: "U-Design", name: "U-Design",                       cat: "Business", url: "https://udesign999-bot.github.io/" },
-  { group: "U-Design", name: "Weekly work checklist",          cat: "Work",     url: "https://udesign999-bot.github.io/-U-Design-Checklist-/" },
-  { group: "U-Design", name: "Vintage Hub clothes shop",       cat: "Business", url: "https://udesign999-bot.github.io/-Vintage-hub-/" },
-
-  { group: "Prasant", name: "Prasant — bio site",     cat: "Personal", url: "https://tzprasantofficial-ai.github.io/-Prasant-/" },
-  { group: "Prasant", name: "QR Generator",           cat: "Business", url: "https://tzprasantofficial-ai.github.io/U-DESIGN-QR-/" },
-  { group: "Prasant", name: "Video Core Prompter",    cat: "Business", url: "https://tzprasantofficial-ai.github.io/-trial-/" },
-  { group: "Prasant", name: "Prasant Studio",         cat: "Work",     url: "https://tzprasantofficial-ai.github.io/-PRASNTSTUDIO-/" },
-  { group: "Prasant", name: "All links in one place", cat: "Personal", url: "https://tzprasantofficial-ai.github.io/Tzprasantofficial-ai/", note: "This index — the page you are on now." }
+  { group: "Aakriti Marketing Agency", name: "NFC Read & Write", cat: "Business", url: "https://aakritimarketing.github.io/NFC-R-W-/" },
+  { group: "Aakriti Marketing Agency", name: "SAS Inventory", cat: "Business", url: "https://aakritimarketing.github.io/SAS-INVENTERY/" },
+  { group: "Aakriti Marketing Agency", name: "Image to Prompt", cat: "Business", url: "https://aakritimarketing.github.io/IMAGE2PROMPT/" },
+  { group: "Aakriti Marketing Agency", name: "U-Design CV Builder", cat: "Business", url: "https://aakritimarketing.github.io/U-DESIGN-CV/" },
+  { group: "U-Design", name: "Coco Pet Care — pet app", cat: "Business", url: "https://udesign999-bot.github.io/udesign999-bot.github.io-hamda-/" },
+  { group: "U-Design", name: "Coco Pet Care — presentation", cat: "Work", url: "https://udesign999-bot.github.io/-presentation-coco-pet-care-clinic-/" },
+  { group: "U-Design", name: "Coco Pet Care — family vet", cat: "Business", url: "https://udesign999-bot.github.io/-AlAin-Vet-1-/" },
+  { group: "U-Design", name: "U-Design", cat: "Business", url: "https://udesign999-bot.github.io/" },
+  { group: "U-Design", name: "Weekly work checklist", cat: "Work", url: "https://udesign999-bot.github.io/-U-Design-Checklist-/" },
+  { group: "U-Design", name: "Vintage Hub clothes shop", cat: "Business", url: "https://udesign999-bot.github.io/-Vintage-hub-/" },
+  { group: "Prasant", name: "Prasant — bio site", cat: "Personal", url: "https://tzprasantofficial-ai.github.io/-Prasant-/" },
+  { group: "Prasant", name: "QR Generator", cat: "Business", url: "https://tzprasantofficial-ai.github.io/U-DESIGN-QR-/" },
+  { group: "Prasant", name: "Video Core Prompter", cat: "Business", url: "https://tzprasantofficial-ai.github.io/-trial-/" },
+  { group: "Prasant", name: "Prasant Studio", cat: "Work", url: "https://tzprasantofficial-ai.github.io/-PRASNTSTUDIO-/" },
+  { group: "Prasant", name: "All links in one place", cat: "Personal", url: "https://tzprasantofficial-ai.github.io/Tzprasantofficial-ai/", note: "This index — the page you are on now." },
+  { name: "Adv for RESTAURANT", cat: "Work", url: "https://aakritimarketing.github.io/RESTAURANT-VIDEO/" },
 ];
 
 const MASTER_URL = "https://tzprasantofficial-ai.github.io/Tzprasantofficial-ai/";
@@ -750,14 +761,75 @@ document.getElementById('add-btn').addEventListener('click', () => {
   SITES.push({ name, cat, url });
   render();
   snip.textContent =
-    'Paste this line into the SITES list to keep it:\n\n' +
+    'Added. Download the updated file below to keep it, or paste this line into the SITES list by hand:\n\n' +
     `  { name: "${name}", cat: "${cat}", url: "${url}" },`;
   snip.classList.add('show');
   document.getElementById('add-name').value = '';
   document.getElementById('add-url').value = '';
 });
 
+/* ---------- download an updated copy of this file ---------- */
+function sitesLiteral(){
+  const lines = SITES.map(s => {
+    const parts = [];
+    if (s.group) parts.push('group: ' + JSON.stringify(s.group));
+    parts.push('name: ' + JSON.stringify(s.name));
+    parts.push('cat: ' + JSON.stringify(s.cat));
+    parts.push('url: ' + JSON.stringify(s.url));
+    if (s.note) parts.push('note: ' + JSON.stringify(s.note));
+    return '  { ' + parts.join(', ') + ' },';
+  });
+  return 'const SITES = [\n' + lines.join('\n') + '\n];';
+}
+
+function buildFile(){
+  const doc = document.documentElement.cloneNode(true);
+
+  // clear anything this page drew at runtime, so the saved file starts clean
+  ['list', 'mast-qr-img', 'lb-img', 'lb-name', 'lb-url', 'snippet'].forEach(id => {
+    const el = doc.querySelector('#' + id); if (el) el.innerHTML = '';
+  });
+  const sn = doc.querySelector('#snippet'); if (sn) sn.classList.remove('show');
+  const lb = doc.querySelector('#lightbox'); if (lb) lb.classList.remove('show');
+  const det = doc.querySelector('.adder'); if (det) det.removeAttribute('open');
+  const emp = doc.querySelector('#empty'); if (emp) emp.setAttribute('hidden', '');
+  doc.querySelectorAll('.chip').forEach(c => c.setAttribute('aria-pressed', String(c.dataset.cat === 'all')));
+  ['add-name', 'add-url', 'q'].forEach(id => {
+    const el = doc.querySelector('#' + id); if (el) el.setAttribute('value', '');
+  });
+  const dl = doc.querySelector('#dl-btn'); if (dl){ dl.removeAttribute('data-done'); dl.textContent = 'Download updated index.html'; }
+
+  // swap in the current site list
+  const scripts = doc.querySelectorAll('script');
+  const target = scripts[scripts.length - 1];
+  const src = target.textContent;
+  const re = /const SITES = \[[\s\S]*?\n\];/;
+  if (!re.test(src)) return null;
+  target.textContent = src.replace(re, () => sitesLiteral());
+
+  return '<!DOCTYPE html>\n' + doc.outerHTML;
+}
+
+document.getElementById('dl-btn').addEventListener('click', () => {
+  const btn = document.getElementById('dl-btn');
+  const html = buildFile();
+  if (!html){
+    document.getElementById('dl-note').textContent = 'Could not rebuild the file — copy the line above into SITES instead.';
+    return;
+  }
+  const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'index.html';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+  btn.textContent = 'Downloaded'; btn.dataset.done = '1';
+  document.getElementById('dl-note').textContent = 'Now upload this file to your repository, replacing the old index.html.';
+  setTimeout(() => { btn.textContent = 'Download updated index.html'; btn.dataset.done = ''; }, 2500);
+});
+
 render();
 </script>
-</body>
-</html>
+
+
+</body></html>

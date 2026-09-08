@@ -1,186 +1,763 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Creations | Link Hub</title>
-    <style>
-        :root {
-            --primary: #3b82f6;
-            --bg: #0f172a;
-            --card-bg: #1e293b;
-            --text: #f8fafc;
-            --text-muted: #94a3b8;
-            --accent: #38bdf8;
-        }
-        body {
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            margin: 0;
-            padding: 3rem 1.5rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-        h1 {
-            font-size: 3rem;
-            margin: 0 0 0.5rem 0;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            background: linear-gradient(90deg, #38bdf8, #818cf8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        p.subtitle {
-            color: var(--text-muted);
-            font-size: 1.1rem;
-            margin: 0;
-        }
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
-            width: 100%;
-            max-width: 1100px;
-        }
-        .card {
-            background: var(--card-bg);
-            border-radius: 16px;
-            padding: 2rem 1.5rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-            border: 1px solid #334155;
-            position: relative;
-            overflow: hidden;
-        }
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, #38bdf8, #818cf8);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        .card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-            border-color: #475569;
-        }
-        .card:hover::before {
-            opacity: 1;
-        }
-        .card h2 {
-            margin: 0 0 1.5rem 0;
-            font-size: 1.4rem;
-            font-weight: 600;
-            color: #e2e8f0;
-        }
-        .qr-wrapper {
-            background: #ffffff;
-            padding: 12px;
-            border-radius: 12px;
-            margin-bottom: 1.5rem;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
-        }
-        .qr-wrapper img {
-            display: block;
-            border-radius: 4px;
-        }
-        a.button {
-            background-color: rgba(59, 130, 246, 0.1);
-            color: var(--accent);
-            text-decoration: none;
-            padding: 0.85rem 1.5rem;
-            border-radius: 8px;
-            font-weight: 600;
-            width: 100%;
-            box-sizing: border-box;
-            transition: all 0.2s ease;
-            border: 1px solid rgba(59, 130, 246, 0.2);
-            margin-bottom: 1rem;
-        }
-        a.button:hover {
-            background-color: var(--primary);
-            color: #ffffff;
-            border-color: var(--primary);
-        }
-        .url-text {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            word-break: break-all;
-            line-height: 1.4;
-            padding: 0 10px;
-        }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Site Index — Prasant</title>
+<meta name="description" content="Every website built across the Aakriti Marketing, U-Design and Prasant accounts. Scan, open or copy any link.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#EDEFF6;
+  --surface:#FFFFFF;
+  --ink:#141A2B;
+  --ink-2:#5A6480;
+  --line:#D6DAE8;
+  --personal:#7A3FE0;
+  --work:#0B8C7C;
+  --business:#1E45E8;
+  --radius:10px;
+  --sans:"Archivo","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--sans);font-size:16px;line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+
+/* ---------- masthead ---------- */
+.mast{background:var(--ink);color:#fff;padding:34px 0 30px}
+.mast-grid{display:flex;gap:36px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap}
+.mast h1{
+  font-size:clamp(30px,5vw,46px);line-height:1.04;margin:0 0 10px;
+  font-weight:700;letter-spacing:-.022em;max-width:15ch;
+}
+.mast p{margin:0;color:#A9B2CC;max-width:46ch;font-size:15px}
+.mast .stat{
+  margin-top:18px;display:flex;gap:8px;flex-wrap:wrap;
+  font-size:13.5px;color:#C6CDE3;
+}
+.mast .stat b{color:#fff;font-weight:600}
+.mast-qr{
+  background:#fff;padding:12px;border-radius:var(--radius);
+  width:176px;flex:0 0 auto;text-align:center;
+}
+.mast-qr svg{width:100%;height:auto;display:block}
+.mast-qr span{
+  display:block;margin-top:8px;font-size:11.5px;color:#4A5470;line-height:1.35;
+}
+
+/* ---------- controls ---------- */
+.controls{
+  position:sticky;top:0;z-index:20;background:rgba(237,239,246,.94);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--line);
+}
+.controls-in{display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding:12px 0}
+.search{
+  flex:1 1 240px;min-width:180px;position:relative;
+}
+.search input{
+  width:100%;font:inherit;font-size:15px;color:var(--ink);
+  padding:9px 12px 9px 34px;border:1px solid var(--line);border-radius:8px;
+  background:var(--surface);
+}
+.search input:focus{outline:2px solid var(--business);outline-offset:1px;border-color:transparent}
+.search svg{position:absolute;left:11px;top:50%;transform:translateY(-50%);opacity:.45}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{
+  font:inherit;font-size:13.5px;font-weight:500;cursor:pointer;
+  padding:8px 13px;border-radius:99px;border:1px solid var(--line);
+  background:var(--surface);color:var(--ink-2);
+}
+.chip:hover{border-color:#B3BAD0}
+.chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.chip[data-cat="Personal"][aria-pressed="true"]{background:var(--personal);border-color:var(--personal)}
+.chip[data-cat="Work"][aria-pressed="true"]{background:var(--work);border-color:var(--work)}
+.chip[data-cat="Business"][aria-pressed="true"]{background:var(--business);border-color:var(--business)}
+.chip:focus-visible{outline:2px solid var(--business);outline-offset:2px}
+
+/* ---------- sections ---------- */
+main{padding:26px 0 70px}
+.cards{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(320px,1fr))}
+.card{
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  padding:14px;display:flex;flex-direction:column;gap:12px;
+  border-top:3px solid var(--line);
+}
+.card[data-cat="Personal"]{border-top-color:var(--personal)}
+.card[data-cat="Work"]{border-top-color:var(--work)}
+.card[data-cat="Business"]{border-top-color:var(--business)}
+.card-top{display:flex;gap:13px;align-items:flex-start}
+.qr{
+  flex:0 0 auto;width:96px;height:96px;background:#fff;border:1px solid var(--line);
+  border-radius:6px;padding:4px;cursor:zoom-in;
+}
+.qr svg{width:100%;height:100%;display:block}
+.meta{min-width:0;flex:1}
+.meta h3{margin:0 0 5px;font-size:16.5px;font-weight:600;line-height:1.25;letter-spacing:-.01em}
+.tag{
+  display:inline-block;font-size:11.5px;font-weight:600;letter-spacing:.04em;
+  padding:2.5px 8px;border-radius:99px;color:#fff;
+}
+.tag[data-cat="Personal"]{background:var(--personal)}
+.tag[data-cat="Work"]{background:var(--work)}
+.tag[data-cat="Business"]{background:var(--business)}
+.note{margin:7px 0 0;font-size:13px;color:var(--ink-2);line-height:1.4}
+
+.open{
+  display:block;text-align:center;text-decoration:none;
+  background:var(--ink);color:#fff;font-weight:600;font-size:14.5px;
+  padding:10px 14px;border-radius:8px;
+}
+.open:hover{background:#2A3350}
+.open:focus-visible{outline:2px solid var(--business);outline-offset:2px}
+
+.url-row{display:flex;gap:6px;align-items:stretch}
+.url-row{align-items:stretch}
+.url{
+  flex:1;min-width:0;margin:0;font-family:var(--mono);font-size:12px;color:var(--ink-2);
+  background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:7px 10px;
+  line-height:1.45;word-break:break-all;user-select:all;-webkit-user-select:all;
+}
+.url:focus{outline:2px solid var(--business);outline-offset:1px}
+.copy{
+  font:inherit;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;
+  background:var(--surface);border:1px solid var(--line);border-radius:8px;
+  padding:0 12px;color:var(--ink);
+}
+.copy:hover{border-color:#B3BAD0}
+.copy:focus-visible{outline:2px solid var(--business);outline-offset:2px}
+.copy[data-done="1"]{background:var(--work);border-color:var(--work);color:#fff}
+
+.empty{
+  text-align:center;color:var(--ink-2);padding:60px 20px;font-size:15px;
+  border:1px dashed var(--line);border-radius:var(--radius);
+}
+
+/* ---------- add-site drawer ---------- */
+.adder{border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);margin-bottom:34px}
+.adder summary{
+  cursor:pointer;padding:13px 16px;font-weight:600;font-size:15px;list-style:none;
+  display:flex;align-items:center;gap:9px;
+}
+.adder summary::-webkit-details-marker{display:none}
+.adder summary::before{content:"+";font-size:19px;line-height:1;color:var(--business)}
+.adder[open] summary::before{content:"–"}
+.adder-body{padding:0 16px 16px;border-top:1px solid var(--line);padding-top:14px}
+.adder-body p{margin:0 0 12px;font-size:14px;color:var(--ink-2);max-width:70ch}
+.fields{display:grid;gap:9px;grid-template-columns:1.2fr 1.8fr .9fr auto;align-items:center}
+.fields input,.fields select{
+  font:inherit;font-size:14px;padding:9px 10px;border:1px solid var(--line);
+  border-radius:8px;background:var(--paper);color:var(--ink);min-width:0;
+}
+.fields button{
+  font:inherit;font-size:14px;font-weight:600;cursor:pointer;color:#fff;
+  background:var(--business);border:0;border-radius:8px;padding:10px 16px;
+}
+.snippet{
+  margin-top:12px;display:none;background:var(--ink);color:#D7DEF5;border-radius:8px;
+  padding:12px 14px;font-family:var(--mono);font-size:12.5px;overflow-x:auto;white-space:pre;
+}
+.snippet.show{display:block}
+
+/* ---------- lightbox ---------- */
+.lightbox{
+  position:fixed;inset:0;background:rgba(20,26,43,.82);display:none;
+  align-items:center;justify-content:center;z-index:50;padding:24px;
+}
+.lightbox.show{display:flex}
+.lightbox-in{background:#fff;padding:20px;border-radius:14px;max-width:380px;width:100%;text-align:center}
+.lightbox-in svg{width:100%;height:auto;display:block}
+.lightbox-in h4{margin:14px 0 4px;font-size:17px}
+.lightbox-in code{font-family:var(--mono);font-size:12px;color:var(--ink-2);word-break:break-all}
+
+footer{border-top:1px solid var(--line);padding:20px 0 40px;font-size:13.5px;color:var(--ink-2)}
+footer code{font-family:var(--mono);font-size:12.5px;background:var(--surface);padding:2px 6px;border-radius:5px;border:1px solid var(--line)}
+
+@media (max-width:760px){
+  .fields{grid-template-columns:1fr}
+  .mast-qr{width:140px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+@media print{
+  .controls,.adder,.mast p,.mast .stat,.open,.copy,footer{display:none}
+  body{background:#fff}
+  .mast{background:#fff;color:#000;padding:0 0 14px;border-bottom:2px solid #000}
+  .mast h1{font-size:24px}
+  .card{break-inside:avoid;border:1px solid #999}
+  .cards{grid-template-columns:repeat(3,1fr)}
+}
+</style>
 </head>
 <body>
-    <div class="header">
-        <h1>Creations</h1>
-        <p class="subtitle">Your Centralized Hub & QR Code Dashboard</p>
+
+<header class="mast">
+  <div class="wrap mast-grid">
+    <div>
+      <h1>Every site I have built, in one place</h1>
+      <p>Scan the code to open a site on your phone, tap the button to open it here, or copy the plain link to paste anywhere.</p>
+      <div class="stat">
+        <span><b id="stat-total">0</b> sites</span><span>·</span>
+        <span id="stat-mix"></span><span>·</span>
+        <span>last updated <b>September 2026</b></span>
+      </div>
     </div>
-    
-    <div class="grid">
-        <!-- Card 1 -->
-        <div class="card">
-            <h2>Prasnt Studio</h2>
-            <div class="qr-wrapper">
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://tzprasantofficial-ai.github.io/-PRASNTSTUDIO-/" alt="QR Code">
-            </div>
-            <a href="https://tzprasantofficial-ai.github.io/-PRASNTSTUDIO-/" class="button" target="_blank">Open Website</a>
-            <div class="url-text">https://tzprasantofficial-ai.github.io/-PRASNTSTUDIO-/</div>
-        </div>
-
-        <!-- Card 2 -->
-        <div class="card">
-            <h2>U-Design</h2>
-            <div class="qr-wrapper">
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://udesign999-bot.github.io/" alt="QR Code">
-            </div>
-            <a href="https://udesign999-bot.github.io/" class="button" target="_blank">Open Website</a>
-            <div class="url-text">https://udesign999-bot.github.io/</div>
-        </div>
-
-        <!-- Card 3 -->
-        <div class="card">
-            <h2>Prasnt Web Bio</h2>
-            <div class="qr-wrapper">
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://tzprasantofficial-ai.github.io/-Prasant-/" alt="QR Code">
-            </div>
-            <a href="https://tzprasantofficial-ai.github.io/-Prasant-/" class="button" target="_blank">Open Website</a>
-            <div class="url-text">https://tzprasantofficial-ai.github.io/-Prasant-/</div>
-        </div>
-
-        <!-- Card 4 -->
-        <div class="card">
-            <h2>Prasnt Website</h2>
-            <div class="qr-wrapper">
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://prasant-studio.ai.studio/" alt="QR Code">
-            </div>
-            <a href="https://prasant-studio.ai.studio/" class="button" target="_blank">Open Website</a>
-            <div class="url-text">https://prasant-studio.ai.studio/</div>
-        </div>
-
-        <!-- Card 5 -->
-        <div class="card">
-            <h2>Prasnt Checklist</h2>
-            <div class="qr-wrapper">
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://udesign999-bot.github.io/-U-Design-Checklist-/" alt="QR Code">
-            </div>
-            <a href="https://udesign999-bot.github.io/-U-Design-Checklist-/" class="button" target="_blank">Open Website</a>
-            <div class="url-text">https://udesign999-bot.github.io/-U-Design-Checklist-/</div>
-        </div>
+    <div class="mast-qr">
+      <div id="mast-qr-img"></div>
+      <span>Scan to open this index</span>
     </div>
+  </div>
+</header>
+
+<div class="controls">
+  <div class="wrap controls-in">
+    <label class="search">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="q" type="search" placeholder="Search by name or link" aria-label="Search sites">
+    </label>
+    <div class="chips" id="chips" role="group" aria-label="Filter by category">
+      <button class="chip" data-cat="all" aria-pressed="true">All</button>
+      <button class="chip" data-cat="Personal" aria-pressed="false">Personal</button>
+      <button class="chip" data-cat="Work" aria-pressed="false">Work</button>
+      <button class="chip" data-cat="Business" aria-pressed="false">Business</button>
+    </div>
+  </div>
+</div>
+
+<main class="wrap">
+  <details class="adder">
+    <summary>Add a new site</summary>
+    <div class="adder-body">
+      <p>Fill this in to preview the card straight away. It also writes the exact line to paste into the <code>SITES</code> list near the top of this file, so the site is there permanently next time you open it.</p>
+      <div class="fields">
+        <input id="add-name" type="text" placeholder="Site name" aria-label="Site name">
+        <input id="add-url" type="url" placeholder="https://…" aria-label="Site link">
+        <select id="add-cat" aria-label="Category">
+          <option>Business</option><option>Work</option><option>Personal</option>
+        </select>
+        <button id="add-btn" type="button">Add site</button>
+      </div>
+      <div class="snippet" id="snippet"></div>
+    </div>
+  </details>
+
+  <div id="list"></div>
+  <div class="empty" id="empty" hidden>Nothing matches that search yet. Try a shorter word, or clear the filter.</div>
+</main>
+
+<footer class="wrap">
+  To keep this list going, edit the <code>SITES</code> array at the top of the script in this file — one line per site: name, link, category. Codes are drawn in the browser, so a new line is all it takes.
+</footer>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Enlarged code">
+  <div class="lightbox-in">
+    <div id="lb-img"></div>
+    <h4 id="lb-name"></h4>
+    <code id="lb-url"></code>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   YOUR SITE LIST — add a new line here and save. That is all.
+   category: "Personal" | "Work" | "Business"
+   Cards sort themselves A to Z by name, so the order here does not matter.
+   ============================================================ */
+const SITES = [
+  { group: "Aakriti Marketing Agency", name: "PPTX Studio",        cat: "Business", url: "https://aakritimarketing.github.io/PPTX-STUDIO/" },
+  { group: "Aakriti Marketing Agency", name: "BalalaHop",          cat: "Work",     url: "https://aakritimarketing.github.io/BalalaHop/" },
+  { group: "Aakriti Marketing Agency", name: "Gesture",            cat: "Work",     url: "https://aakritimarketing.github.io/-Gesture-try/" },
+  { group: "Aakriti Marketing Agency", name: "PDF Converter",      cat: "Business", url: "https://aakritimarketing.github.io/-Converter-/" },
+  { group: "Aakriti Marketing Agency", name: "Background Remover", cat: "Business", url: "https://aakritimarketing.github.io/-BG-Remover-/" },
+  { group: "Aakriti Marketing Agency", name: "NFC Read & Write",   cat: "Business", url: "https://aakritimarketing.github.io/NFC-R-W-/" },
+  { group: "Aakriti Marketing Agency", name: "SAS Inventory",      cat: "Business", url: "https://aakritimarketing.github.io/SAS-INVENTERY/" },
+  { group: "Aakriti Marketing Agency", name: "Image to Prompt",    cat: "Business", url: "https://aakritimarketing.github.io/IMAGE2PROMPT/" },
+  { group: "Aakriti Marketing Agency", name: "U-Design CV Builder",cat: "Business", url: "https://aakritimarketing.github.io/U-DESIGN-CV/" },
+
+  { group: "U-Design", name: "Coco Pet Care — pet app",        cat: "Business", url: "https://udesign999-bot.github.io/udesign999-bot.github.io-hamda-/" },
+  { group: "U-Design", name: "Coco Pet Care — presentation",   cat: "Work",     url: "https://udesign999-bot.github.io/-presentation-coco-pet-care-clinic-/" },
+  { group: "U-Design", name: "Coco Pet Care — family vet",     cat: "Business", url: "https://udesign999-bot.github.io/-AlAin-Vet-1-/" },
+  { group: "U-Design", name: "U-Design",                       cat: "Business", url: "https://udesign999-bot.github.io/" },
+  { group: "U-Design", name: "Weekly work checklist",          cat: "Work",     url: "https://udesign999-bot.github.io/-U-Design-Checklist-/" },
+  { group: "U-Design", name: "Vintage Hub clothes shop",       cat: "Business", url: "https://udesign999-bot.github.io/-Vintage-hub-/" },
+
+  { group: "Prasant", name: "Prasant — bio site",     cat: "Personal", url: "https://tzprasantofficial-ai.github.io/-Prasant-/" },
+  { group: "Prasant", name: "QR Generator",           cat: "Business", url: "https://tzprasantofficial-ai.github.io/U-DESIGN-QR-/" },
+  { group: "Prasant", name: "Video Core Prompter",    cat: "Business", url: "https://tzprasantofficial-ai.github.io/-trial-/" },
+  { group: "Prasant", name: "Prasant Studio",         cat: "Work",     url: "https://tzprasantofficial-ai.github.io/-PRASNTSTUDIO-/" },
+  { group: "Prasant", name: "All links in one place", cat: "Personal", url: "https://tzprasantofficial-ai.github.io/Tzprasantofficial-ai/", note: "This index — the page you are on now." }
+];
+
+const MASTER_URL = "https://tzprasantofficial-ai.github.io/Tzprasantofficial-ai/";
+
+/* Minimal QR encoder (byte mode), versions 1-20, EC levels L/M/Q/H. */
+var QR = (function () {
+  const RSB=[[1,26,19],[1,26,16],[1,26,13],[1,26,9],[1,44,34],[1,44,28],[1,44,22],[1,44,16],[1,70,55],[1,70,44],[2,35,17],[2,35,13],[1,100,80],[2,50,32],[2,50,24],[4,25,9],[1,134,108],[2,67,43],[2,33,15,2,34,16],[2,33,11,2,34,12],[2,86,68],[4,43,27],[4,43,19],[4,43,15],[2,98,78],[4,49,31],[2,32,14,4,33,15],[4,39,13,1,40,14],[2,121,97],[2,60,38,2,61,39],[4,40,18,2,41,19],[4,40,14,2,41,15],[2,146,116],[3,58,36,2,59,37],[4,36,16,4,37,17],[4,36,12,4,37,13],[2,86,68,2,87,69],[4,69,43,1,70,44],[6,43,19,2,44,20],[6,43,15,2,44,16],[4,101,81],[1,80,50,4,81,51],[4,50,22,4,51,23],[3,36,12,8,37,13],[2,116,92,2,117,93],[6,58,36,2,59,37],[4,46,20,6,47,21],[7,42,14,4,43,15],[4,133,107],[8,59,37,1,60,38],[8,44,20,4,45,21],[12,33,11,4,34,12],[3,145,115,1,146,116],[4,64,40,5,65,41],[11,36,16,5,37,17],[11,36,12,5,37,13],[5,109,87,1,110,88],[5,65,41,5,66,42],[5,54,24,7,55,25],[11,36,12,7,37,13],[5,122,98,1,123,99],[7,73,45,3,74,46],[15,43,19,2,44,20],[3,45,15,13,46,16],[1,135,107,5,136,108],[10,74,46,1,75,47],[1,50,22,15,51,23],[2,42,14,17,43,15],[5,150,120,1,151,121],[9,69,43,4,70,44],[17,50,22,1,51,23],[2,42,14,19,43,15],[3,141,113,4,142,114],[3,70,44,11,71,45],[17,47,21,4,48,22],[9,39,13,16,40,14],[3,135,107,5,136,108],[3,67,41,13,68,42],[15,54,24,5,55,25],[15,43,15,10,44,16]];
+const AP=[[],[6,18],[6,22],[6,26],[6,30],[6,34],[6,22,38],[6,24,42],[6,26,46],[6,28,50],[6,30,54],[6,32,58],[6,34,62],[6,26,46,66],[6,26,48,70],[6,26,50,74],[6,30,54,78],[6,30,56,82],[6,30,58,86],[6,34,62,90]];
+
+
+  var EXP = new Array(512), LOG = new Array(256);
+  (function () {
+    var x = 1;
+    for (var i = 0; i < 255; i++) { EXP[i] = x; LOG[x] = i; x <<= 1; if (x & 256) x ^= 0x11d; }
+    for (var i = 255; i < 512; i++) EXP[i] = EXP[i - 255];
+  })();
+
+  function gmul(a, b) { return (a === 0 || b === 0) ? 0 : EXP[LOG[a] + LOG[b]]; }
+
+  function rsPoly(n) {
+    var p = [1];
+    for (var i = 0; i < n; i++) {
+      var np = new Array(p.length + 1).fill(0);
+      for (var j = 0; j < p.length; j++) { np[j] ^= p[j]; np[j + 1] ^= gmul(p[j], EXP[i]); }
+      p = np;
+    }
+    return p;
+  }
+
+  function rsEncode(data, ecLen) {
+    var gen = rsPoly(ecLen);
+    var res = new Array(data.length + ecLen).fill(0);
+    for (var i = 0; i < data.length; i++) res[i] = data[i];
+    for (var i = 0; i < data.length; i++) {
+      var c = res[i]; if (c === 0) continue;
+      var lc = LOG[c];
+      for (var j = 0; j < gen.length; j++) res[i + j] ^= EXP[LOG[gen[j]] + lc];
+    }
+    return res.slice(data.length);
+  }
+
+  var EC_INDEX = { L: 0, M: 1, Q: 2, H: 3 };
+  var EC_BITS = { L: 1, M: 0, Q: 3, H: 2 };
+
+  function blocksFor(version, ec) {
+    var t = RSB[(version - 1) * 4 + EC_INDEX[ec]], out = [];
+    for (var i = 0; i < t.length; i += 3) {
+      for (var k = 0; k < t[i]; k++) out.push({ total: t[i + 1], data: t[i + 2] });
+    }
+    return out;
+  }
+
+  function dataCapacity(version, ec) {
+    return blocksFor(version, ec).reduce(function (s, b) { return s + b.data; }, 0);
+  }
+
+  function utf8Bytes(str) {
+    var out = [], s = encodeURIComponent(str);
+    for (var i = 0; i < s.length; i++) {
+      if (s[i] === '%') { out.push(parseInt(s.substr(i + 1, 2), 16)); i += 2; }
+      else out.push(s.charCodeAt(i));
+    }
+    return out;
+  }
+
+  function bitLen(n) { var c = 0; while (n !== 0) { c++; n >>>= 1; } return c; }
+
+  function bchFormat(d) {
+    var v = d << 10;
+    while (bitLen(v) - bitLen(0x537) >= 0) v ^= 0x537 << (bitLen(v) - bitLen(0x537));
+    return ((d << 10) | v) ^ 0x5412;
+  }
+
+  function bchVersion(v) {
+    var d = v << 12;
+    while (bitLen(d) - bitLen(0x1f25) >= 0) d ^= 0x1f25 << (bitLen(d) - bitLen(0x1f25));
+    return (v << 12) | d;
+  }
+
+  function maskFn(m, i, j) {
+    switch (m) {
+      case 0: return (i + j) % 2 === 0;
+      case 1: return i % 2 === 0;
+      case 2: return j % 3 === 0;
+      case 3: return (i + j) % 3 === 0;
+      case 4: return (Math.floor(i / 2) + Math.floor(j / 3)) % 2 === 0;
+      case 5: return ((i * j) % 2) + ((i * j) % 3) === 0;
+      case 6: return (((i * j) % 2) + ((i * j) % 3)) % 2 === 0;
+      case 7: return (((i + j) % 2) + ((i * j) % 3)) % 2 === 0;
+    }
+  }
+
+  function makeBitstream(bytes, version, ec) {
+    var bits = [];
+    function push(val, len) { for (var i = len - 1; i >= 0; i--) bits.push((val >> i) & 1); }
+    push(4, 4);
+    push(bytes.length, version < 10 ? 8 : 16);
+    for (var i = 0; i < bytes.length; i++) push(bytes[i], 8);
+    var cap = dataCapacity(version, ec) * 8;
+    for (var i = 0; i < 4 && bits.length < cap; i++) bits.push(0);
+    while (bits.length % 8 !== 0) bits.push(0);
+    var words = [];
+    for (var i = 0; i < bits.length; i += 8) {
+      var b = 0; for (var j = 0; j < 8; j++) b = (b << 1) | bits[i + j];
+      words.push(b);
+    }
+    var pad = [0xec, 0x11], k = 0;
+    while (words.length < dataCapacity(version, ec)) words.push(pad[k++ % 2]);
+    return words;
+  }
+
+  function finalPayload(words, version, ec) {
+    var blocks = blocksFor(version, ec), dat = [], ecw = [], off = 0;
+    for (var i = 0; i < blocks.length; i++) {
+      var d = words.slice(off, off + blocks[i].data); off += blocks[i].data;
+      dat.push(d);
+      ecw.push(rsEncode(d, blocks[i].total - blocks[i].data));
+    }
+    var out = [], maxD = Math.max.apply(null, dat.map(function (d) { return d.length; }));
+    for (var i = 0; i < maxD; i++) for (var b = 0; b < dat.length; b++) if (i < dat[b].length) out.push(dat[b][i]);
+    var maxE = Math.max.apply(null, ecw.map(function (d) { return d.length; }));
+    for (var i = 0; i < maxE; i++) for (var b = 0; b < ecw.length; b++) if (i < ecw[b].length) out.push(ecw[b][i]);
+    return out;
+  }
+
+  function buildBase(version, size) {
+    var m = [];
+    for (var r = 0; r < size; r++) { m.push(new Array(size).fill(null)); }
+
+    function probe(row, col) {
+      for (var r = -1; r <= 7; r++) {
+        if (row + r < 0 || row + r >= size) continue;
+        for (var c = -1; c <= 7; c++) {
+          if (col + c < 0 || col + c >= size) continue;
+          m[row + r][col + c] =
+            (0 <= r && r <= 6 && (c === 0 || c === 6)) ||
+            (0 <= c && c <= 6 && (r === 0 || r === 6)) ||
+            (2 <= r && r <= 4 && 2 <= c && c <= 4);
+        }
+      }
+    }
+    probe(0, 0); probe(size - 7, 0); probe(0, size - 7);
+
+    var pos = AP[version - 1];
+    for (var i = 0; i < pos.length; i++) {
+      for (var j = 0; j < pos.length; j++) {
+        var row = pos[i], col = pos[j];
+        if (m[row][col] !== null) continue;
+        for (var r = -2; r <= 2; r++) for (var c = -2; c <= 2; c++) {
+          m[row + r][col + c] = (r === -2 || r === 2 || c === -2 || c === 2 || (r === 0 && c === 0));
+        }
+      }
+    }
+
+    for (var i = 8; i < size - 8; i++) {
+      if (m[i][6] === null) m[i][6] = i % 2 === 0;
+      if (m[6][i] === null) m[6][i] = i % 2 === 0;
+    }
+
+    if (version >= 7) {
+      var bits = bchVersion(version);
+      for (var i = 0; i < 18; i++) {
+        var mod = ((bits >> i) & 1) === 1;
+        m[Math.floor(i / 3)][(i % 3) + size - 8 - 3] = mod;
+        m[(i % 3) + size - 8 - 3][Math.floor(i / 3)] = mod;
+      }
+    }
+    return m;
+  }
+
+  function reserveFormat(m, size) {
+    var res = [];
+    for (var i = 0; i < 15; i++) {
+      var r1, c1, r2, c2;
+      if (i < 6) { r1 = i; } else if (i < 8) { r1 = i + 1; } else { r1 = size - 15 + i; }
+      c1 = 8;
+      if (i < 8) { r2 = 8; c2 = size - i - 1; }
+      else if (i < 9) { r2 = 8; c2 = 15 - i - 1 + 1; }
+      else { r2 = 8; c2 = 15 - i - 1; }
+      res.push([r1, c1], [r2, c2]);
+    }
+    res.push([size - 8, 8]);
+    return res;
+  }
+
+  function placeData(m, size, payload, reserved) {
+    var isFn = [];
+    for (var r = 0; r < size; r++) isFn.push(m[r].map(function (v) { return v !== null; }));
+    for (var i = 0; i < reserved.length; i++) isFn[reserved[i][0]][reserved[i][1]] = true;
+
+    var inc = -1, row = size - 1, bitIdx = 0, byteIdx = 0;
+    for (var col = size - 1; col > 0; col -= 2) {
+      if (col === 6) col--;
+      while (true) {
+        for (var c = 0; c < 2; c++) {
+          var cc = col - c;
+          if (!isFn[row][cc]) {
+            var dark = false;
+            if (byteIdx < payload.length) dark = ((payload[byteIdx] >>> (7 - bitIdx)) & 1) === 1;
+            m[row][cc] = dark;
+            bitIdx++;
+            if (bitIdx === 8) { bitIdx = 0; byteIdx++; }
+          }
+        }
+        row += inc;
+        if (row < 0 || size <= row) { row -= inc; inc = -inc; break; }
+      }
+    }
+    return isFn;
+  }
+
+  function applyMask(m, isFn, size, mask) {
+    var out = [];
+    for (var r = 0; r < size; r++) {
+      out.push(m[r].slice());
+      for (var c = 0; c < size; c++) {
+        if (!isFn[r][c] && maskFn(mask, r, c)) out[r][c] = !out[r][c];
+      }
+    }
+    return out;
+  }
+
+  function setFormat(m, size, ec, mask) {
+    var bits = bchFormat((EC_BITS[ec] << 3) | mask);
+    for (var i = 0; i < 15; i++) {
+      var mod = ((bits >> i) & 1) === 1;
+      if (i < 6) m[i][8] = mod;
+      else if (i < 8) m[i + 1][8] = mod;
+      else m[size - 15 + i][8] = mod;
+
+      if (i < 8) m[8][size - i - 1] = mod;
+      else if (i < 9) m[8][15 - i - 1 + 1] = mod;
+      else m[8][15 - i - 1] = mod;
+    }
+    m[size - 8][8] = true;
+  }
+
+  function penalty(m, size) {
+    var score = 0, r, c, i;
+    // rule 1: runs of 5+
+    for (r = 0; r < size; r++) {
+      var run = 1;
+      for (c = 1; c < size; c++) {
+        if (m[r][c] === m[r][c - 1]) run++;
+        else { if (run >= 5) score += 3 + (run - 5); run = 1; }
+      }
+      if (run >= 5) score += 3 + (run - 5);
+    }
+    for (c = 0; c < size; c++) {
+      var run = 1;
+      for (r = 1; r < size; r++) {
+        if (m[r][c] === m[r - 1][c]) run++;
+        else { if (run >= 5) score += 3 + (run - 5); run = 1; }
+      }
+      if (run >= 5) score += 3 + (run - 5);
+    }
+    // rule 2: 2x2 blocks
+    for (r = 0; r < size - 1; r++) for (c = 0; c < size - 1; c++) {
+      var v = m[r][c];
+      if (v === m[r][c + 1] && v === m[r + 1][c] && v === m[r + 1][c + 1]) score += 3;
+    }
+    // rule 3: finder-like patterns
+    var pat = [true, false, true, true, true, false, true, false, false, false, false];
+    var pat2 = [false, false, false, false, true, false, true, true, true, false, true];
+    function match(get, len) {
+      var s = 0;
+      for (var a = 0; a + 11 <= len; a++) {
+        var ok1 = true, ok2 = true;
+        for (var b = 0; b < 11; b++) {
+          var v = get(a + b);
+          if (v !== pat[b]) ok1 = false;
+          if (v !== pat2[b]) ok2 = false;
+        }
+        if (ok1) s += 40;
+        if (ok2) s += 40;
+      }
+      return s;
+    }
+    for (r = 0; r < size; r++) score += match(function (k) { return m[r][k]; }, size);
+    for (c = 0; c < size; c++) score += match(function (k) { return m[k][c]; }, size);
+    // rule 4: dark ratio
+    var dark = 0;
+    for (r = 0; r < size; r++) for (c = 0; c < size; c++) if (m[r][c]) dark++;
+    var pct = (dark * 100) / (size * size);
+    score += Math.floor(Math.abs(pct - 50) / 5) * 10;
+    return score;
+  }
+
+  function matrix(text, ec) {
+    ec = ec || 'M';
+    var bytes = utf8Bytes(text), version = 0;
+    for (var v = 1; v <= 20; v++) {
+      var cc = v < 10 ? 8 : 16;
+      var needed = Math.ceil((4 + cc + bytes.length * 8) / 8);
+      if (needed <= dataCapacity(v, ec)) { version = v; break; }
+    }
+    if (!version) throw new Error('Content too long for QR');
+    var size = version * 4 + 17;
+    var words = makeBitstream(bytes, version, ec);
+    var payload = finalPayload(words, version, ec);
+    var base = buildBase(version, size);
+    var reserved = reserveFormat(base, size);
+    var isFn = placeData(base, size, payload, reserved);
+
+    var best = null, bestScore = Infinity;
+    for (var mask = 0; mask < 8; mask++) {
+      var cand = applyMask(base, isFn, size, mask);
+      setFormat(cand, size, ec, mask);
+      var s = penalty(cand, size);
+      if (s < bestScore) { bestScore = s; best = cand; }
+    }
+    return best;
+  }
+
+  function svg(text, opts) {
+    opts = opts || {};
+    var ec = opts.ec || 'M', quiet = opts.quiet == null ? 4 : opts.quiet;
+    var m = matrix(text, ec), n = m.length, dim = n + quiet * 2;
+    var d = '';
+    for (var r = 0; r < n; r++) {
+      for (var c = 0; c < n; c++) {
+        if (m[r][c]) d += 'M' + (c + quiet) + ' ' + (r + quiet) + 'h1v1h-1z';
+      }
+    }
+    return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + dim + ' ' + dim + '" shape-rendering="crispEdges">' +
+      '<rect width="' + dim + '" height="' + dim + '" fill="' + (opts.bg || '#ffffff') + '"/>' +
+      '<path d="' + d + '" fill="' + (opts.fg || '#000000') + '"/></svg>';
+  }
+
+  return { matrix: matrix, svg: svg };
+})();
+
+
+
+
+/* ---------- rendering ---------- */
+const listEl  = document.getElementById('list');
+const emptyEl = document.getElementById('empty');
+let filterCat = 'all';
+let query = '';
+
+document.getElementById('mast-qr-img').innerHTML = QR.svg(MASTER_URL, { ec: 'M', quiet: 2 });
+
+function esc(s){ return String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+
+function cardHTML(site, i){
+  return `<article class="card" data-cat="${esc(site.cat)}" data-i="${i}">
+    <div class="card-top">
+      <div class="qr" role="img" aria-label="Code for ${esc(site.name)}" tabindex="0">${QR.svg(site.url, { ec:'M', quiet:2, fg:'#141A2B' })}</div>
+      <div class="meta">
+        <h3>${esc(site.name)}</h3>
+        <span class="tag" data-cat="${esc(site.cat)}">${esc(site.cat)}</span>
+        ${site.note ? `<p class="note">${esc(site.note)}</p>` : ''}
+      </div>
+    </div>
+    <a class="open" href="${esc(site.url)}" target="_blank" rel="noopener">Open website</a>
+    <div class="url-row">
+      <p class="url" tabindex="0" aria-label="Link for ${esc(site.name)}">${esc(site.url)}</p>
+      <button class="copy" type="button" data-url="${esc(site.url)}">Copy</button>
+    </div>
+  </article>`;
+}
+
+function byName(a, b){
+  return a.name.localeCompare(b.name, undefined, { sensitivity: 'base', numeric: true });
+}
+
+function render(){
+  const visible = SITES
+    .filter(s => {
+      const catOK = filterCat === 'all' || s.cat === filterCat;
+      const hay = (s.name + ' ' + s.url + ' ' + (s.group || '')).toLowerCase();
+      return catOK && (!query || hay.includes(query));
+    })
+    .sort(byName);
+
+  listEl.innerHTML = `<div class="cards">${visible.map(s => cardHTML(s, SITES.indexOf(s))).join('')}</div>`;
+  emptyEl.hidden = visible.length > 0;
+
+  document.getElementById('stat-total').textContent = SITES.length;
+  const mix = ['Business', 'Work', 'Personal']
+    .map(c => [c, SITES.filter(s => s.cat === c).length])
+    .filter(([, n]) => n > 0)
+    .map(([c, n]) => `<b>${n}</b> ${c.toLowerCase()}`)
+    .join(' · ');
+  document.getElementById('stat-mix').innerHTML = mix;
+}
+
+/* ---------- interactions ---------- */
+document.getElementById('chips').addEventListener('click', e => {
+  const b = e.target.closest('.chip'); if (!b) return;
+  filterCat = b.dataset.cat;
+  [...e.currentTarget.children].forEach(c => c.setAttribute('aria-pressed', String(c === b)));
+  render();
+});
+
+document.getElementById('q').addEventListener('input', e => {
+  query = e.target.value.trim().toLowerCase();
+  render();
+});
+
+listEl.addEventListener('click', e => {
+  const btn = e.target.closest('.copy');
+  if (btn){
+    const text = btn.dataset.url;
+    const done = () => { btn.textContent = 'Copied'; btn.dataset.done = '1';
+      setTimeout(() => { btn.textContent = 'Copy'; btn.dataset.done = ''; }, 1400); };
+    const fallback = () => {
+      const t = document.createElement('textarea');
+      t.value = text; t.style.position = 'fixed'; t.style.opacity = '0';
+      document.body.appendChild(t); t.select();
+      try { document.execCommand('copy'); } catch (err) {}
+      document.body.removeChild(t); done();
+    };
+    if (navigator.clipboard && window.isSecureContext){
+      navigator.clipboard.writeText(text).then(done, fallback);
+    } else fallback();
+    return;
+  }
+  const qr = e.target.closest('.qr');
+  if (qr) openLightbox(qr.closest('.card'));
+});
+
+listEl.addEventListener('keydown', e => {
+  if ((e.key === 'Enter' || e.key === ' ') && e.target.classList.contains('qr')){
+    e.preventDefault(); openLightbox(e.target.closest('.card'));
+  }
+});
+
+const lb = document.getElementById('lightbox');
+function openLightbox(card){
+  const s = SITES[+card.dataset.i];
+  document.getElementById('lb-img').innerHTML = QR.svg(s.url, { ec:'M', quiet:2, fg:'#141A2B' });
+  document.getElementById('lb-name').textContent = s.name;
+  document.getElementById('lb-url').textContent = s.url;
+  lb.classList.add('show');
+}
+lb.addEventListener('click', () => lb.classList.remove('show'));
+document.addEventListener('keydown', e => { if (e.key === 'Escape') lb.classList.remove('show'); });
+
+/* ---------- add a site ---------- */
+document.getElementById('add-btn').addEventListener('click', () => {
+  const name = document.getElementById('add-name').value.trim();
+  let url = document.getElementById('add-url').value.trim();
+  const cat = document.getElementById('add-cat').value;
+  const snip = document.getElementById('snippet');
+
+  if (!name || !url){
+    snip.textContent = 'Add a name and a link first.';
+    snip.classList.add('show');
+    return;
+  }
+  if (!/^https?:\/\//i.test(url)) url = 'https://' + url;
+
+  SITES.push({ name, cat, url });
+  render();
+  snip.textContent =
+    'Paste this line into the SITES list to keep it:\n\n' +
+    `  { name: "${name}", cat: "${cat}", url: "${url}" },`;
+  snip.classList.add('show');
+  document.getElementById('add-name').value = '';
+  document.getElementById('add-url').value = '';
+});
+
+render();
+</script>
 </body>
 </html>

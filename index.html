@@ -92,13 +92,35 @@ main{padding:26px 0 70px}
 .card[data-cat="Personal"]{border-top-color:var(--personal)}
 .card[data-cat="Work"]{border-top-color:var(--work)}
 .card[data-cat="Business"]{border-top-color:var(--business)}
+.card{position:relative}
 .card-top{display:flex;gap:13px;align-items:flex-start}
+.rm{
+  position:absolute;top:7px;right:7px;width:27px;height:27px;line-height:1;
+  font:inherit;font-size:18px;cursor:pointer;color:var(--ink-2);
+  background:transparent;border:1px solid transparent;border-radius:7px;
+}
+.rm:hover{background:var(--paper);border-color:var(--line);color:#B3261E}
+.rm:focus-visible{outline:2px solid var(--business);outline-offset:1px}
+.confirm{
+  position:absolute;inset:0;z-index:3;background:rgba(255,255,255,.97);
+  border-radius:var(--radius);display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:13px;padding:18px;text-align:center;
+}
+.confirm p{margin:0;font-size:14.5px;line-height:1.4}
+.confirm b{font-weight:600}
+.confirm-btns{display:flex;gap:8px}
+.confirm button{
+  font:inherit;font-size:14px;font-weight:600;cursor:pointer;padding:9px 16px;
+  border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink);
+}
+.confirm .yes{background:#B3261E;border-color:#B3261E;color:#fff}
+.confirm button:focus-visible{outline:2px solid var(--business);outline-offset:2px}
 .qr{
   flex:0 0 auto;width:96px;height:96px;background:#fff;border:1px solid var(--line);
   border-radius:6px;padding:4px;cursor:zoom-in;
 }
 .qr svg{width:100%;height:100%;display:block}
-.meta{min-width:0;flex:1}
+.meta{min-width:0;flex:1;padding-right:20px}
 .meta h3{margin:0 0 5px;font-size:16.5px;font-weight:600;line-height:1.25;letter-spacing:-.01em}
 .tag{
   display:inline-block;font-size:11.5px;font-weight:600;letter-spacing:.04em;
@@ -185,6 +207,20 @@ main{padding:26px 0 70px}
 .lightbox-in h4{margin:14px 0 4px;font-size:17px}
 .lightbox-in code{font-family:var(--mono);font-size:12px;color:var(--ink-2);word-break:break-all}
 
+.toast{
+  position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:60;
+  background:var(--ink);color:#fff;padding:12px 16px;border-radius:10px;
+  display:none;align-items:center;gap:16px;font-size:14px;
+  box-shadow:0 10px 28px rgba(20,26,43,.3);max-width:calc(100% - 32px);
+}
+.toast.show{display:flex}
+.toast span{min-width:0}
+.toast button{
+  font:inherit;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap;
+  background:transparent;border:0;color:#9FB4FF;padding:2px 2px;text-decoration:underline;
+}
+.toast button:focus-visible{outline:2px solid #9FB4FF;outline-offset:3px;border-radius:4px}
+
 footer{border-top:1px solid var(--line);padding:20px 0 40px;font-size:13.5px;color:var(--ink-2)}
 footer code{font-family:var(--mono);font-size:12.5px;background:var(--surface);padding:2px 6px;border-radius:5px;border:1px solid var(--line)}
 
@@ -195,7 +231,7 @@ footer code{font-family:var(--mono);font-size:12.5px;background:var(--surface);p
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 
 @media print{
-  .controls,.adder,.mast p,.mast .stat,.open,.copy,footer{display:none}
+  .controls,.adder,.mast p,.mast .stat,.open,.copy,.rm,.toast,footer{display:none}
   body{background:#fff}
   .mast{background:#fff;color:#000;padding:0 0 14px;border-bottom:2px solid #000}
   .mast h1{font-size:24px}
@@ -255,7 +291,7 @@ footer code{font-family:var(--mono);font-size:12.5px;background:var(--surface);p
       <div class="snippet" id="snippet"></div>
       <div class="adder-actions">
         <button id="dl-btn" type="button" class="dl">Download updated index.html</button>
-        <span id="dl-note">Includes every site currently on this page.</span>
+        <span id="dl-note">Saves every site currently on this page, including anything you removed with the × on a card.</span>
       </div>
     </div>
   </details>
@@ -267,6 +303,11 @@ footer code{font-family:var(--mono);font-size:12.5px;background:var(--surface);p
 <footer class="wrap">
   To keep this list going, either use the panel above and download the updated file, or edit the <code>SITES</code> array at the top of the script by hand — one line per site: name, category, link. Codes are drawn in the browser, so a new line is all it takes.
 </footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite">
+  <span id="toast-msg"></span>
+  <button id="toast-undo" type="button">Undo</button>
+</div>
 
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Enlarged code">
   <div class="lightbox-in">
@@ -290,7 +331,6 @@ const SITES = [
   { group: "Aakriti Marketing Agency", name: "Background Remover", cat: "Business", url: "https://aakritimarketing.github.io/-BG-Remover-/" },
   { group: "Aakriti Marketing Agency", name: "NFC Read & Write", cat: "Business", url: "https://aakritimarketing.github.io/NFC-R-W-/" },
   { group: "Aakriti Marketing Agency", name: "SAS Inventory", cat: "Business", url: "https://aakritimarketing.github.io/SAS-INVENTERY/" },
-  { group: "Aakriti Marketing Agency", name: "Image to Prompt", cat: "Business", url: "https://aakritimarketing.github.io/IMAGE2PROMPT/" },
   { group: "Aakriti Marketing Agency", name: "U-Design CV Builder", cat: "Business", url: "https://aakritimarketing.github.io/U-DESIGN-CV/" },
   { group: "U-Design", name: "Coco Pet Care — pet app", cat: "Business", url: "https://udesign999-bot.github.io/udesign999-bot.github.io-hamda-/" },
   { group: "U-Design", name: "Coco Pet Care — presentation", cat: "Work", url: "https://udesign999-bot.github.io/-presentation-coco-pet-care-clinic-/" },
@@ -303,7 +343,8 @@ const SITES = [
   { group: "Prasant", name: "Video Core Prompter", cat: "Business", url: "https://tzprasantofficial-ai.github.io/-trial-/" },
   { group: "Prasant", name: "Prasant Studio", cat: "Work", url: "https://tzprasantofficial-ai.github.io/-PRASNTSTUDIO-/" },
   { group: "Prasant", name: "All links in one place", cat: "Personal", url: "https://tzprasantofficial-ai.github.io/Tzprasantofficial-ai/", note: "This index — the page you are on now." },
-  { name: "Adv for RESTAURANT", cat: "Work", url: "https://aakritimarketing.github.io/RESTAURANT-VIDEO/" },
+  { name: "I2P", cat: "Business", url: "https://aakritimarketing.github.io/I2P-/" },
+  { name: "RESTAURANT VIDEO", cat: "Work", url: "https://aakritimarketing.github.io/RESTAURANT-VIDEO/" },
 ];
 
 const MASTER_URL = "https://tzprasantofficial-ai.github.io/Tzprasantofficial-ai/";
@@ -651,6 +692,7 @@ function esc(s){ return String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt
 
 function cardHTML(site, i){
   return `<article class="card" data-cat="${esc(site.cat)}" data-i="${i}">
+    <button class="rm" type="button" title="Remove ${esc(site.name)}" aria-label="Remove ${esc(site.name)}">&times;</button>
     <div class="card-top">
       <div class="qr" role="img" aria-label="Code for ${esc(site.name)}" tabindex="0">${QR.svg(site.url, { ec:'M', quiet:2, fg:'#141A2B' })}</div>
       <div class="meta">
@@ -723,8 +765,57 @@ listEl.addEventListener('click', e => {
     } else fallback();
     return;
   }
+  const rm = e.target.closest('.rm');
+  if (rm){ askRemove(rm.closest('.card')); return; }
+
+  const cancel = e.target.closest('.confirm .no');
+  if (cancel){ cancel.closest('.confirm').remove(); return; }
+
+  const yes = e.target.closest('.confirm .yes');
+  if (yes){ removeSite(+yes.closest('.card').dataset.i); return; }
+
   const qr = e.target.closest('.qr');
   if (qr) openLightbox(qr.closest('.card'));
+});
+
+/* ---------- remove, with a confirm step and an undo ---------- */
+function clearConfirms(){ document.querySelectorAll('.confirm').forEach(c => c.remove()); }
+
+function askRemove(card){
+  clearConfirms();
+  const s = SITES[+card.dataset.i];
+  const box = document.createElement('div');
+  box.className = 'confirm';
+  box.innerHTML = `<p>Remove <b>${esc(s.name)}</b> from the list?</p>
+    <div class="confirm-btns">
+      <button class="yes" type="button">Remove</button>
+      <button class="no" type="button">Keep it</button>
+    </div>`;
+  card.appendChild(box);
+  box.querySelector('.yes').focus();
+}
+
+let undoState = null, toastTimer = null;
+const toast = document.getElementById('toast');
+
+function removeSite(i){
+  const site = SITES[i];
+  undoState = { site, index: i };
+  SITES.splice(i, 1);
+  render();
+  document.getElementById('toast-msg').textContent =
+    `Removed “${site.name}”. Download the file to make it permanent.`;
+  toast.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => { toast.classList.remove('show'); undoState = null; }, 9000);
+}
+
+document.getElementById('toast-undo').addEventListener('click', () => {
+  if (!undoState) return;
+  SITES.splice(undoState.index, 0, undoState.site);
+  undoState = null;
+  toast.classList.remove('show');
+  render();
 });
 
 listEl.addEventListener('keydown', e => {
@@ -742,7 +833,9 @@ function openLightbox(card){
   lb.classList.add('show');
 }
 lb.addEventListener('click', () => lb.classList.remove('show'));
-document.addEventListener('keydown', e => { if (e.key === 'Escape') lb.classList.remove('show'); });
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape'){ lb.classList.remove('show'); clearConfirms(); }
+});
 
 /* ---------- add a site ---------- */
 document.getElementById('add-btn').addEventListener('click', () => {
@@ -793,6 +886,9 @@ function buildFile(){
   const lb = doc.querySelector('#lightbox'); if (lb) lb.classList.remove('show');
   const det = doc.querySelector('.adder'); if (det) det.removeAttribute('open');
   const emp = doc.querySelector('#empty'); if (emp) emp.setAttribute('hidden', '');
+  const tst = doc.querySelector('#toast');
+  if (tst){ tst.classList.remove('show'); const tm = tst.querySelector('#toast-msg'); if (tm) tm.textContent = ''; }
+  doc.querySelectorAll('.confirm').forEach(c => c.remove());
   doc.querySelectorAll('.chip').forEach(c => c.setAttribute('aria-pressed', String(c.dataset.cat === 'all')));
   ['add-name', 'add-url', 'q'].forEach(id => {
     const el = doc.querySelector('#' + id); if (el) el.setAttribute('value', '');

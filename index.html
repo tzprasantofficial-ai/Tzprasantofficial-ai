@@ -3,7 +3,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Site Index — Prasant</title>
-<meta name="description" content="Every website built across the Aakriti Marketing, U-Design and Prasant accounts. Scan, open or copy any link.">
+<meta name="description" content="Every website built across the Aakriti Marketing, U-Design and Prasant accounts. Tap a logo to open, edit or get its QR code.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"%3E%3Cdefs%3E%3ClinearGradient id="g" x1="0" y1="0" x2="1" y2="1"%3E%3Cstop offset="0" stop-color="#1E45E8"/%3E%3Cstop offset="1" stop-color="#7A3FE0"/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width="64" height="64" rx="15" fill="url%28#g%29"/%3E%3Crect x="12" y="12" width="17" height="17" rx="5" fill="#fff"/%3E%3Crect x="35" y="12" width="17" height="17" rx="8.5" fill="#C9F2EA"/%3E%3Crect x="12" y="35" width="17" height="17" rx="8.5" fill="#E5D8FF"/%3E%3Crect x="35" y="35" width="17" height="17" rx="5" fill="#fff"/%3E%3C/svg%3E">
+<meta name="theme-color" content="#141A2B">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
@@ -43,13 +45,28 @@ body{
   font-size:13.5px;color:#C6CDE3;
 }
 .mast .stat b{color:#fff;font-weight:600}
+.brandline{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.brandline .bl-logo{width:44px;height:44px;flex:0 0 auto}
+.brandline .bl-logo svg{width:100%;height:100%;display:block;border-radius:12px}
+.brandline span{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#C6CDE3}
 .mast-qr{
-  background:#fff;padding:12px;border-radius:var(--radius);
-  width:176px;flex:0 0 auto;text-align:center;
+  width:176px;flex:0 0 auto;text-align:center;perspective:900px;
+  background:none;border:0;padding:0;font:inherit;color:inherit;cursor:pointer;
 }
-.mast-qr svg{width:100%;height:auto;display:block}
-.mast-qr span{
-  display:block;margin-top:8px;font-size:11.5px;color:#4A5470;line-height:1.35;
+.mast-qr .flip{
+  position:relative;width:176px;height:176px;transform-style:preserve-3d;
+  transition:transform .55s cubic-bezier(.3,1.3,.5,1);
+}
+.mast-qr[aria-pressed="true"] .flip{transform:rotateY(180deg)}
+.mast-qr .face{
+  position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;
+  border-radius:var(--radius);overflow:hidden;
+}
+.mast-qr .face svg{width:100%;height:100%;display:block}
+.mast-qr .back{background:#fff;padding:12px;transform:rotateY(180deg)}
+.mast-qr:focus-visible{outline:2px solid #9FB4FF;outline-offset:4px;border-radius:var(--radius)}
+.mast-qr > span{
+  display:block;margin-top:10px;font-size:12px;color:#A9B2CC;line-height:1.35;
 }
 
 /* ---------- controls ---------- */
@@ -57,7 +74,7 @@ body{
   position:sticky;top:0;z-index:20;background:rgba(237,239,246,.94);
   backdrop-filter:blur(8px);border-bottom:1px solid var(--line);
 }
-.controls-in{display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding:12px 0}
+.controls-in{display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding:12px 20px}
 .search{
   flex:1 1 240px;min-width:180px;position:relative;
 }
@@ -115,11 +132,79 @@ main{padding:26px 0 70px}
 }
 .confirm .yes{background:#B3261E;border-color:#B3261E;color:#fff}
 .confirm button:focus-visible{outline:2px solid var(--business);outline-offset:2px}
-.qr{
-  flex:0 0 auto;width:96px;height:96px;background:#fff;border:1px solid var(--line);
-  border-radius:6px;padding:4px;cursor:zoom-in;
+/* ---------- site logo (tap = menu, double-tap = open) ---------- */
+.logo-wrap{position:relative;flex:0 0 auto}
+.logo{
+  display:block;width:96px;height:96px;padding:0;border:0;background:none;cursor:pointer;
+  border-radius:22px;touch-action:manipulation;-webkit-tap-highlight-color:transparent;
+  box-shadow:0 6px 16px -6px rgba(20,26,43,.35);
+  transition:transform .18s cubic-bezier(.3,1.6,.5,1),box-shadow .18s ease;
 }
-.qr svg{width:100%;height:100%;display:block}
+.logo svg{width:100%;height:100%;display:block;border-radius:22px}
+.logo:hover{transform:translateY(-2px) rotate(-3deg) scale(1.03);box-shadow:0 12px 22px -8px rgba(20,26,43,.45)}
+.logo:active{transform:scale(.94)}
+.logo:focus-visible{outline:3px solid var(--business);outline-offset:3px}
+.logo.launch{animation:launch .5s cubic-bezier(.3,1.6,.5,1)}
+@keyframes launch{0%{transform:scale(1)}35%{transform:scale(.86) rotate(4deg)}70%{transform:scale(1.1) rotate(-3deg)}100%{transform:scale(1)}}
+.lg-stack{position:relative;display:block;width:100%;height:100%;border-radius:23%;overflow:hidden}
+.lg-stack img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.dots{
+  position:absolute;right:-6px;bottom:-6px;width:28px;height:28px;border-radius:50%;
+  border:2px solid var(--surface);background:var(--ink);color:#fff;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;padding:0;
+  box-shadow:0 3px 8px rgba(20,26,43,.3);
+}
+.dots:hover{background:#2A3350}
+.dots:focus-visible{outline:2px solid var(--business);outline-offset:2px}
+.dots svg{width:14px;height:14px;display:block}
+
+.menu{
+  position:absolute;top:calc(100% + 10px);left:0;z-index:5;min-width:196px;
+  background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:6px;
+  box-shadow:0 16px 36px -10px rgba(20,26,43,.4);
+  transform-origin:18px -6px;animation:pop .16s ease-out;
+}
+.menu::before{
+  content:"";position:absolute;top:-7px;left:38px;width:12px;height:12px;background:var(--surface);
+  border-left:1px solid var(--line);border-top:1px solid var(--line);transform:rotate(45deg);
+}
+@keyframes pop{from{opacity:0;transform:scale(.92) translateY(-4px)}to{opacity:1;transform:none}}
+.menu button{
+  position:relative;display:flex;align-items:center;gap:11px;width:100%;
+  font:inherit;font-size:14.5px;font-weight:500;color:var(--ink);text-align:left;cursor:pointer;
+  background:transparent;border:0;border-radius:8px;padding:9px 10px;
+}
+.menu button:hover,.menu button:focus-visible{background:var(--paper);outline:none}
+.menu button svg{width:18px;height:18px;flex:0 0 auto;color:var(--ink-2)}
+.menu .hint{
+  margin:4px 4px 2px;padding:7px 6px 2px;border-top:1px solid var(--line);
+  font-size:11.5px;color:var(--ink-2);line-height:1.35;
+}
+
+.editor{
+  position:absolute;inset:0;z-index:4;background:#fff;border-radius:var(--radius);
+  padding:14px;display:flex;flex-direction:column;gap:8px;overflow:auto;
+}
+.editor h4{margin:0 0 2px;font-size:15px;font-weight:600;display:flex;align-items:center;gap:9px}
+.editor h4 .mini{width:28px;height:28px;flex:0 0 auto}
+.editor h4 .mini svg{width:100%;height:100%;display:block;border-radius:8px}
+.editor label{display:flex;flex-direction:column;gap:3px;font-size:12px;font-weight:600;color:var(--ink-2)}
+.editor input,.editor select{
+  font:inherit;font-size:14px;font-weight:400;padding:7px 9px;border:1px solid var(--line);
+  border-radius:8px;background:var(--paper);color:var(--ink);min-width:0;
+}
+.editor .row2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.editor .ed-btns{display:flex;gap:8px;margin-top:auto;padding-top:4px}
+.editor .ed-btns button{
+  flex:1;font:inherit;font-size:14px;font-weight:600;cursor:pointer;padding:9px 12px;
+  border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink);
+}
+.editor .ed-btns .save{background:var(--business);border-color:var(--business);color:#fff}
+.editor .ed-err{margin:0;font-size:12.5px;color:#B3261E}
+.card.editing{min-height:292px}
+
+/* QR codes appear only when printing (one sheet of scannable codes) */
+.qr-print{display:none}
 .meta{min-width:0;flex:1;padding-right:20px}
 .meta h3{margin:0 0 5px;font-size:16.5px;font-weight:600;line-height:1.25;letter-spacing:-.01em}
 .tag{
@@ -202,10 +287,34 @@ main{padding:26px 0 70px}
   align-items:center;justify-content:center;z-index:50;padding:24px;
 }
 .lightbox.show{display:flex}
-.lightbox-in{background:#fff;padding:20px;border-radius:14px;max-width:380px;width:100%;text-align:center}
-.lightbox-in svg{width:100%;height:auto;display:block}
-.lightbox-in h4{margin:14px 0 4px;font-size:17px}
-.lightbox-in code{font-family:var(--mono);font-size:12px;color:var(--ink-2);word-break:break-all}
+.lightbox-in{
+  position:relative;background:#fff;padding:20px;border-radius:16px;max-width:380px;width:100%;
+  text-align:center;animation:pop .2s ease-out;max-height:calc(100vh - 32px);overflow:auto;
+}
+.lb-x{
+  position:absolute;top:10px;right:10px;width:32px;height:32px;border-radius:8px;cursor:pointer;
+  font:inherit;font-size:22px;line-height:1;color:var(--ink-2);background:transparent;border:1px solid transparent;
+}
+.lb-x:hover{background:var(--paper);border-color:var(--line)}
+.lb-x:focus-visible{outline:2px solid var(--business);outline-offset:1px}
+.lb-head{display:flex;align-items:center;gap:11px;padding-right:34px;text-align:left}
+.lb-logo{width:40px;height:40px;flex:0 0 auto}
+.lb-logo svg{width:100%;height:100%;display:block;border-radius:11px}
+.lightbox-in h4{margin:0;font-size:17px;line-height:1.25}
+.lb-qr{margin:14px auto 0;max-width:280px}
+.lb-qr svg{width:100%;height:auto;display:block}
+.lb-scan{margin:6px 0 12px;font-size:12.5px;color:var(--ink-2)}
+.lb-link{display:flex;gap:6px;align-items:stretch;margin-bottom:10px;text-align:left}
+.lightbox-in code{
+  flex:1;min-width:0;font-family:var(--mono);font-size:12px;color:var(--ink-2);word-break:break-all;
+  background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:7px 10px;
+  user-select:all;-webkit-user-select:all;
+}
+.lb-link button{
+  font:inherit;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;
+  background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:0 12px;color:var(--ink);
+}
+.lb-link button[data-done="1"]{background:var(--work);border-color:var(--work);color:#fff}
 
 .toast{
   position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:60;
@@ -231,7 +340,11 @@ footer code{font-family:var(--mono);font-size:12.5px;background:var(--surface);p
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 
 @media print{
-  .controls,.adder,.mast p,.mast .stat,.open,.copy,.rm,.toast,footer{display:none}
+  .controls,.adder,.mast p,.mast .stat,.open,.copy,.rm,.toast,footer,.dots,.menu,.editor,.brandline,.mast-qr > span{display:none}
+  .logo-wrap .logo{display:none}
+  .qr-print{display:block;width:96px;height:96px;border:1px solid #999;border-radius:6px;padding:4px}
+  .qr-print svg{width:100%;height:100%;display:block}
+  .mast-qr .flip{transform:rotateY(180deg)!important;transition:none}
   body{background:#fff}
   .mast{background:#fff;color:#000;padding:0 0 14px;border-bottom:2px solid #000}
   .mast h1{font-size:24px}
@@ -245,18 +358,22 @@ footer code{font-family:var(--mono);font-size:12.5px;background:var(--surface);p
 <header class="mast">
   <div class="wrap mast-grid">
     <div>
+      <div class="brandline"><div class="bl-logo" id="brand-logo"></div><span>Prasant · Site Index</span></div>
       <h1>Every site I have built, in one place</h1>
-      <p>Scan the code to open a site on your phone, tap the button to open it here, or copy the plain link to paste anywhere.</p>
+      <p>Tap a logo for options: open, edit or show its QR code. Double-tap a logo to jump straight to the site.</p>
       <div class="stat">
         <span><b id="stat-total">21</b> sites</span><span>·</span>
         <span id="stat-mix"><b>13</b> business · <b>6</b> work · <b>2</b> personal</span><span>·</span>
         <span>last updated <b>September 2026</b></span>
       </div>
     </div>
-    <div class="mast-qr">
-      <div id="mast-qr-img"></div>
-      <span>Scan to open this index</span>
-    </div>
+    <button class="mast-qr" id="mast-qr" type="button" aria-pressed="false" aria-label="Show the QR code for this index">
+      <div class="flip">
+        <div class="face" id="mast-logo"></div>
+        <div class="face back" id="mast-qr-img"></div>
+      </div>
+      <span id="mast-qr-cap">Tap to show the QR code for this index</span>
+    </button>
   </div>
 </header>
 
@@ -301,7 +418,7 @@ footer code{font-family:var(--mono);font-size:12.5px;background:var(--surface);p
 </main>
 
 <footer class="wrap">
-  To keep this list going, either use the panel above and download the updated file, or edit the <code>SITES</code> array at the top of the script by hand — one line per site: name, category, link. Codes are drawn in the browser, so a new line is all it takes.
+  To keep this list going, either use the panel above and download the updated file, or edit the <code>SITES</code> array at the top of the script by hand — one line per site: name, category, link, and optionally a logo. Logos and QR codes are drawn in the browser, so a new line is all it takes. Tip: printing this page gives you a sheet of scannable QR codes.
 </footer>
 
 <div class="toast" id="toast" role="status" aria-live="polite">
@@ -309,11 +426,17 @@ footer code{font-family:var(--mono);font-size:12.5px;background:var(--surface);p
   <button id="toast-undo" type="button">Undo</button>
 </div>
 
-<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Enlarged code">
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-labelledby="lb-name">
   <div class="lightbox-in">
-    <div id="lb-img"></div>
-    <h4 id="lb-name"></h4>
-    <code id="lb-url"></code>
+    <button class="lb-x" id="lb-close" type="button" aria-label="Close">&times;</button>
+    <div class="lb-head"><div class="lb-logo" id="lb-logo"></div><h4 id="lb-name"></h4></div>
+    <div class="lb-qr" id="lb-img"></div>
+    <p class="lb-scan">Scan with your phone camera</p>
+    <div class="lb-link">
+      <code id="lb-url"></code>
+      <button id="lb-copy" type="button">Copy link</button>
+    </div>
+    <a class="open" id="lb-open" href="#" target="_blank" rel="noopener">Open website</a>
   </div>
 </div>
 
@@ -321,30 +444,32 @@ footer code{font-family:var(--mono);font-size:12.5px;background:var(--surface);p
 /* ============================================================
    YOUR SITE LIST — add a new line here and save. That is all.
    category: "Personal" | "Work" | "Business"
+   logo: one of the built-in logo names (see LOGOS below), or a path to an
+         image like "logos/pptx.png". Leave it out and a logo is picked for you.
    Cards sort themselves A to Z by name, so the order here does not matter.
    ============================================================ */
 const SITES = [
-  { group: "Aakriti Marketing Agency", name: "PPTX Studio", cat: "Business", url: "https://aakritimarketing.github.io/PPTX-STUDIO/" },
-  { group: "Aakriti Marketing Agency", name: "BalalaHop", cat: "Work", url: "https://aakritimarketing.github.io/BalalaHop/" },
-  { group: "Aakriti Marketing Agency", name: "Gesture", cat: "Work", url: "https://aakritimarketing.github.io/-Gesture-try/" },
-  { group: "Aakriti Marketing Agency", name: "PDF Converter", cat: "Business", url: "https://aakritimarketing.github.io/-Converter-/" },
-  { group: "Aakriti Marketing Agency", name: "Background Remover", cat: "Business", url: "https://aakritimarketing.github.io/-BG-Remover-/" },
-  { group: "Aakriti Marketing Agency", name: "NFC Read & Write", cat: "Business", url: "https://aakritimarketing.github.io/NFC-R-W-/" },
-  { group: "Aakriti Marketing Agency", name: "SAS Inventory", cat: "Business", url: "https://aakritimarketing.github.io/SAS-INVENTERY/" },
-  { group: "Aakriti Marketing Agency", name: "U-Design CV Builder", cat: "Business", url: "https://aakritimarketing.github.io/U-DESIGN-CV/" },
-  { group: "U-Design", name: "Coco Pet Care — pet app", cat: "Business", url: "https://udesign999-bot.github.io/udesign999-bot.github.io-hamda-/" },
-  { group: "U-Design", name: "Coco Pet Care — presentation", cat: "Work", url: "https://udesign999-bot.github.io/-presentation-coco-pet-care-clinic-/" },
-  { group: "U-Design", name: "Coco Pet Care — family vet", cat: "Business", url: "https://udesign999-bot.github.io/-AlAin-Vet-1-/" },
-  { group: "U-Design", name: "U-Design", cat: "Business", url: "https://udesign999-bot.github.io/" },
-  { group: "U-Design", name: "Weekly work checklist", cat: "Work", url: "https://udesign999-bot.github.io/-U-Design-Checklist-/" },
-  { group: "U-Design", name: "Vintage Hub clothes shop", cat: "Business", url: "https://udesign999-bot.github.io/-Vintage-hub-/" },
-  { group: "Prasant", name: "Prasant — bio site", cat: "Personal", url: "https://tzprasantofficial-ai.github.io/-Prasant-/" },
-  { group: "Prasant", name: "QR Generator", cat: "Business", url: "https://tzprasantofficial-ai.github.io/U-DESIGN-QR-/" },
-  { group: "Prasant", name: "Video Core Prompter", cat: "Business", url: "https://tzprasantofficial-ai.github.io/-trial-/" },
-  { group: "Prasant", name: "Prasant Studio", cat: "Work", url: "https://tzprasantofficial-ai.github.io/-PRASNTSTUDIO-/" },
-  { group: "Prasant", name: "All links in one place", cat: "Personal", url: "https://tzprasantofficial-ai.github.io/Tzprasantofficial-ai/", note: "This index — the page you are on now." },
-  { name: "I2P", cat: "Business", url: "https://aakritimarketing.github.io/I2P-/" },
-  { name: "RESTAURANT VIDEO", cat: "Work", url: "https://aakritimarketing.github.io/RESTAURANT-VIDEO/" },
+  { group: "Aakriti Marketing Agency", name: "PPTX Studio", cat: "Business", url: "https://aakritimarketing.github.io/PPTX-STUDIO/", logo: "pptx" },
+  { group: "Aakriti Marketing Agency", name: "BalalaHop", cat: "Work", url: "https://aakritimarketing.github.io/BalalaHop/", logo: "balala" },
+  { group: "Aakriti Marketing Agency", name: "Gesture", cat: "Work", url: "https://aakritimarketing.github.io/-Gesture-try/", logo: "gesture" },
+  { group: "Aakriti Marketing Agency", name: "PDF Converter", cat: "Business", url: "https://aakritimarketing.github.io/-Converter-/", logo: "pdf" },
+  { group: "Aakriti Marketing Agency", name: "Background Remover", cat: "Business", url: "https://aakritimarketing.github.io/-BG-Remover-/", logo: "bgremove" },
+  { group: "Aakriti Marketing Agency", name: "NFC Read & Write", cat: "Business", url: "https://aakritimarketing.github.io/NFC-R-W-/", logo: "nfc" },
+  { group: "Aakriti Marketing Agency", name: "SAS Inventory", cat: "Business", url: "https://aakritimarketing.github.io/SAS-INVENTERY/", logo: "inventory" },
+  { group: "Aakriti Marketing Agency", name: "U-Design CV Builder", cat: "Business", url: "https://aakritimarketing.github.io/U-DESIGN-CV/", logo: "cv" },
+  { group: "U-Design", name: "Coco Pet Care — pet app", cat: "Business", url: "https://udesign999-bot.github.io/udesign999-bot.github.io-hamda-/", logo: "petapp" },
+  { group: "U-Design", name: "Coco Pet Care — presentation", cat: "Work", url: "https://udesign999-bot.github.io/-presentation-coco-pet-care-clinic-/", logo: "petdeck" },
+  { group: "U-Design", name: "Coco Pet Care — family vet", cat: "Business", url: "https://udesign999-bot.github.io/-AlAin-Vet-1-/", logo: "vet" },
+  { group: "U-Design", name: "U-Design", cat: "Business", url: "https://udesign999-bot.github.io/", logo: "udesign" },
+  { group: "U-Design", name: "Weekly work checklist", cat: "Work", url: "https://udesign999-bot.github.io/-U-Design-Checklist-/", logo: "checklist" },
+  { group: "U-Design", name: "Vintage Hub clothes shop", cat: "Business", url: "https://udesign999-bot.github.io/-Vintage-hub-/", logo: "vintage" },
+  { group: "Prasant", name: "Prasant — bio site", cat: "Personal", url: "https://tzprasantofficial-ai.github.io/-Prasant-/", logo: "bio" },
+  { group: "Prasant", name: "QR Generator", cat: "Business", url: "https://tzprasantofficial-ai.github.io/U-DESIGN-QR-/", logo: "qrgen" },
+  { group: "Prasant", name: "Video Core Prompter", cat: "Business", url: "https://tzprasantofficial-ai.github.io/-trial-/", logo: "prompter" },
+  { group: "Prasant", name: "Prasant Studio", cat: "Work", url: "https://tzprasantofficial-ai.github.io/-PRASNTSTUDIO-/", logo: "studio" },
+  { group: "Prasant", name: "All links in one place", cat: "Personal", url: "https://tzprasantofficial-ai.github.io/Tzprasantofficial-ai/", logo: "index", note: "This index — the page you are on now." },
+  { name: "I2P", cat: "Business", url: "https://aakritimarketing.github.io/I2P-/", logo: "i2p" },
+  { name: "RESTAURANT VIDEO", cat: "Work", url: "https://aakritimarketing.github.io/RESTAURANT-VIDEO/", logo: "restaurant" },
 ];
 
 const MASTER_URL = "https://tzprasantofficial-ai.github.io/Tzprasantofficial-ai/";
@@ -677,6 +802,210 @@ const AP=[[],[6,18],[6,22],[6,26],[6,30],[6,34],[6,22,38],[6,24,42],[6,26,46],[6
   return { matrix: matrix, svg: svg };
 })();
 
+/* ============================================================
+   LOGOS — one hand-drawn app icon per site (64×64 SVG).
+   Each entry: two gradient colours (a → b) and the drawing (g).
+   To use your own artwork instead, set logo: "logos/name.png" on the site.
+   ============================================================ */
+function spark(x, y, r, fill){
+  return `<path d="M${x} ${y-r}Q${x} ${y} ${x+r} ${y}Q${x} ${y} ${x} ${y+r}Q${x} ${y} ${x-r} ${y}Q${x} ${y} ${x} ${y-r}z" fill="${fill}"/>`;
+}
+function paw(cx, cy, s, fill){
+  return `<g fill="${fill}"><ellipse cx="${cx}" cy="${cy+3*s}" rx="${6.5*s}" ry="${5.5*s}"/>` +
+    `<circle cx="${cx-7*s}" cy="${cy-3*s}" r="${2.6*s}"/><circle cx="${cx-2.6*s}" cy="${cy-8*s}" r="${2.8*s}"/>` +
+    `<circle cx="${cx+2.6*s}" cy="${cy-8*s}" r="${2.8*s}"/><circle cx="${cx+7*s}" cy="${cy-3*s}" r="${2.6*s}"/></g>`;
+}
+function checker(x, y, n, sz, fill){
+  let d = '';
+  for (let r = 0; r < n; r++) for (let c = 0; c < n; c++) if ((r + c) % 2) d += `M${x+c*sz} ${y+r*sz}h${sz}v${sz}h-${sz}z`;
+  return `<path d="${d}" fill="${fill}"/>`;
+}
+const W = '#fff', RC = 'stroke-linecap="round" stroke-linejoin="round" fill="none"';
+
+const LOGOS = {
+  /* read, edit & build PowerPoint in the browser */
+  pptx: { name: 'Slides', a: '#FF7A45', b: '#D9361E', g:
+    `<rect x="12" y="15" width="40" height="28" rx="4" fill="${W}"/>
+     <rect x="19" y="30" width="6" height="8" rx="1.5" fill="#FF7A45"/><rect x="28.5" y="25" width="6" height="13" rx="1.5" fill="#D9361E"/><rect x="38" y="21" width="6" height="17" rx="1.5" fill="#FF7A45"/>
+     <path d="M32 43v6M24 51h16" stroke="${W}" stroke-width="3.2" ${RC}/>${spark(50, 12, 5, '#FFE08A')}` },
+  /* step-by-step prompt builder for reels, videos & photos */
+  balala: { name: 'Clapper hop', a: '#FFD166', b: '#EF476F', g:
+    `<path d="M20 12c4-6 12-6 16 2" stroke="${W}" stroke-width="2.6" stroke-dasharray="1 5" ${RC}/>
+     <rect x="12" y="30" width="36" height="22" rx="4" fill="${W}"/>
+     <path d="M11.5 29.5l33-9 2.2 7.6-33 9z" fill="#3B2A5C"/>
+     <path d="M19 27.6l4.5 5.4M27.5 25.3l4.5 5.4M36 23l4.5 5.4" stroke="${W}" stroke-width="2.6"/>
+     <path d="M26 38.5l9 4.5-9 4.5z" fill="#EF476F"/>${spark(51, 17, 6, W)}${spark(40, 11, 3, '#FFF3C4')}` },
+  /* Inclusion Bridge: speech ⇄ sign language, English & Arabic */
+  gesture: { name: 'Wave hand', a: '#22C1A6', b: '#0B6E7F', g:
+    `<g fill="${W}"><rect x="18" y="22" width="6.5" height="18" rx="3.25"/><rect x="25.5" y="15" width="6.5" height="24" rx="3.25"/>
+     <rect x="33" y="14" width="6.5" height="25" rx="3.25"/><rect x="40.5" y="19" width="6.5" height="21" rx="3.25"/>
+     <path d="M18 33h29v8c0 7.5-6 12.5-14.5 12.5S18 48.5 18 41z"/>
+     <rect x="10" y="30" width="6.5" height="16" rx="3.25" transform="rotate(-38 13.25 38)"/></g>
+     <path d="M50 11c3 2 5 5 5 9M53.5 6c4.5 3 7 8 7 14" stroke="${W}" stroke-width="2.6" ${RC}/>
+     <path d="M7 12h10v7h-5l-3 3v-3H7z" fill="#FFE08A"/>` },
+  /* convert files to & from PDF */
+  pdf: { name: 'PDF swap', a: '#FF5A5F', b: '#B3122E', g:
+    `<path d="M18 9h19l11 11v33a3 3 0 0 1-3 3H18a3 3 0 0 1-3-3V12a3 3 0 0 1 3-3z" fill="${W}"/>
+     <path d="M37 9v8a3 3 0 0 0 3 3h8" fill="#FFC2C4"/>
+     <path d="M21 27h18l-4-4M42 34H24l4 4" stroke="#FF5A5F" stroke-width="2.8" ${RC}/>
+     <text x="31.5" y="50" text-anchor="middle" font-family="Archivo,Arial,sans-serif" font-weight="800" font-size="10.5" fill="#B3122E" letter-spacing=".5">PDF</text>` },
+  /* remove image backgrounds */
+  bgremove: { name: 'Magic cut-out', a: '#8B5CF6', b: '#EC4899', g:
+    `<rect x="11" y="13" width="36" height="36" rx="5" fill="${W}"/>${checker(11, 13, 6, 6, '#E7DEFF')}
+     <circle cx="29" cy="28" r="6.5" fill="#7C3AED"/><path d="M16.5 49c0-8 5.5-13 12.5-13s12.5 5 12.5 13z" fill="#7C3AED"/>
+     <path d="M43 43l12 12" stroke="#FFD84D" stroke-width="4" stroke-linecap="round"/>
+     ${spark(43, 42, 6, '#FFF3C4')}${spark(53, 13, 4.5, W)}` },
+  /* read & write NFC tags */
+  nfc: { name: 'Tap waves', a: '#3B82F6', b: '#1E3A8A', g:
+    `<rect x="12" y="11" width="22" height="41" rx="5" fill="${W}"/><rect x="15.5" y="16" width="15" height="26" rx="2" fill="#BFD4FF"/>
+     <circle cx="23" cy="46.5" r="2" fill="#1E3A8A"/>
+     <path d="M39 25a8.5 8.5 0 0 1 0 13M44.5 20a16 16 0 0 1 0 23M50 15a23.5 23.5 0 0 1 0 33" stroke="${W}" stroke-width="3.2" ${RC}/>` },
+  /* U-Scan: barcode & photo inventory, export to Excel */
+  inventory: { name: 'Scan box', a: '#FBBF24', b: '#EA580C', g:
+    `<path d="M32 11l19 9.5v23L32 53l-19-9.5v-23z" fill="${W}"/>
+     <path d="M13 20.5L32 30l19-9.5M32 30v23" stroke="#F59E0B" stroke-width="2.2" ${RC}/>
+     <path d="M18 31v10M21 32.5v10M24.5 34v10M27 35.5v10" stroke="#9A3412" stroke-width="1.6"/>
+     <path d="M6 37h52" stroke="#E11D48" stroke-width="2.4" stroke-linecap="round"/>
+     <path d="M6 37h52" stroke="#FDA4AF" stroke-width="6" stroke-linecap="round" opacity=".35"/>` },
+  /* build a CV / résumé */
+  cv: { name: 'Profile card', a: '#6366F1', b: '#312E81', g:
+    `<rect x="10" y="15" width="44" height="34" rx="5" fill="${W}"/>
+     <circle cx="22.5" cy="28" r="5.5" fill="#6366F1"/><path d="M14 43c0-5.5 3.8-8.5 8.5-8.5s8.5 3 8.5 8.5z" fill="#6366F1"/>
+     <path d="M36 25h12M36 31h12M36 37h8" stroke="#C7C9F9" stroke-width="3" stroke-linecap="round"/>
+     ${spark(52, 13, 6, '#FFD84D')}` },
+  /* Coco Pet Care app */
+  petapp: { name: 'Paw phone', a: '#F9A8D4', b: '#DB2777', g:
+    `<rect x="19" y="9" width="26" height="46" rx="7" fill="${W}"/><rect x="27" y="12" width="10" height="2.4" rx="1.2" fill="#FBCFE8"/>
+     ${paw(32, 32, 1.05, '#DB2777')}
+     <path d="M47 16c2-3 6-2 6 1 0 3-6 6-6 6s-6-3-6-6c0-3 4-4 6-1z" fill="#FFE4F1"/>` },
+  /* Coco Pet Care clinic presentation */
+  petdeck: { name: 'Paw slides', a: '#FDBA74', b: '#C2410C', g:
+    `<rect x="9" y="13" width="46" height="31" rx="4.5" fill="${W}"/>
+     ${paw(32, 29.5, .9, '#EA580C')}
+     <path d="M32 44v7M24 53h16" stroke="${W}" stroke-width="3.2" ${RC}/>
+     <circle cx="15" cy="19" r="1.8" fill="#FDBA74"/><circle cx="20.5" cy="19" r="1.8" fill="#FED7AA"/>` },
+  /* family vet clinic */
+  vet: { name: 'Care heart', a: '#34D399', b: '#047857', g:
+    `<path d="M32 52C19.5 44 11 36.5 11 26.5 11 20 15.7 15.5 21.5 15.5c4.3 0 8 2.5 10.5 6.3 2.5-3.8 6.2-6.3 10.5-6.3C48.3 15.5 53 20 53 26.5 53 36.5 44.5 44 32 52z" fill="${W}"/>
+     <path d="M32 26.5v13M25.5 33h13" stroke="#059669" stroke-width="4.6" stroke-linecap="round"/>
+     ${paw(49, 49, .5, '#D1FAE5')}` },
+  /* U-Design studio */
+  udesign: { name: 'Golden U', a: '#2B3245', b: '#07090F', g:
+    `<path d="M20 14v17a12 12 0 0 0 24 0V14" stroke="#E4BE3E" stroke-width="7.5" ${RC}/>
+     <path d="M20 14v17a12 12 0 0 0 24 0V14" stroke="#FFE9A3" stroke-width="1.6" opacity=".6" ${RC}/>
+     ${spark(51, 49, 5.5, W)}${spark(12, 50, 3, '#E4BE3E')}` },
+  /* weekly work checklist */
+  checklist: { name: 'Tick board', a: '#A3E635', b: '#15803D', g:
+    `<rect x="14" y="12" width="36" height="44" rx="5" fill="${W}"/><rect x="24" y="8" width="16" height="9" rx="3.5" fill="#14532D"/>
+     <path d="M20 27l3 3 5.5-6.5M20 39l3 3 5.5-6.5" stroke="#16A34A" stroke-width="3" ${RC}/>
+     <path d="M33 27.5h11M33 39.5h11" stroke="#BBF7D0" stroke-width="3" stroke-linecap="round"/>
+     <rect x="20" y="47" width="8.5" height="3" rx="1.5" fill="#D9F99D"/><path d="M33 48.5h7" stroke="#BBF7D0" stroke-width="3" stroke-linecap="round"/>` },
+  /* Vintage Hub clothes shop */
+  vintage: { name: 'Retro tee', a: '#D4A373', b: '#7F4F24', g:
+    `<path d="M29 17.5a3.5 3.5 0 1 1 3.5 3.3" stroke="${W}" stroke-width="2.4" ${RC}/>
+     <path d="M24 21L11 28l4.5 9 5.5-2.2V54h22V34.8l5.5 2.2 4.5-9-13-7c-1.2 3.2-4.4 5.3-8 5.3S25.2 24.2 24 21z" fill="${W}"/>
+     <path d="M21 40h22" stroke="#E9C46A" stroke-width="3.2"/><path d="M21 45.5h22" stroke="#E76F51" stroke-width="3.2"/><path d="M21 51h22" stroke="#2A9D8F" stroke-width="3.2"/>` },
+  /* Prasant bio site */
+  bio: { name: 'Hello face', a: '#A78BFA', b: '#6D28D9', g:
+    `<circle cx="31" cy="33" r="18" fill="${W}"/>
+     <path d="M16 27c4-9 14-12 23-8 4 2 7 5 8 8-7-2-14-6-18-10-3 5-8 8-13 10z" fill="#3B1C7A"/>
+     <circle cx="25" cy="34" r="2.3" fill="#3B1C7A"/><circle cx="37" cy="34" r="2.3" fill="#3B1C7A"/>
+     <path d="M25 40.5c3 3.6 9 3.6 12 0" stroke="#3B1C7A" stroke-width="2.4" ${RC}/>
+     <circle cx="21" cy="39" r="2.2" fill="#F9A8D4" opacity=".8"/><circle cx="41" cy="39" r="2.2" fill="#F9A8D4" opacity=".8"/>
+     ${spark(52, 12, 5.5, '#FFD84D')}` },
+  /* QR code generator */
+  qrgen: { name: 'Zap code', a: '#0EA5E9', b: '#1E40AF', g:
+    `<g fill="none" stroke="${W}" stroke-width="3.4"><rect x="12" y="12" width="13" height="13" rx="2.5"/><rect x="39" y="12" width="13" height="13" rx="2.5"/><rect x="12" y="39" width="13" height="13" rx="2.5"/></g>
+     <g fill="${W}"><rect x="16.5" y="16.5" width="4" height="4" rx="1"/><rect x="43.5" y="16.5" width="4" height="4" rx="1"/><rect x="16.5" y="43.5" width="4" height="4" rx="1"/>
+     <rect x="29" y="13" width="4" height="4" rx="1"/><rect x="29" y="21" width="4" height="4" rx="1"/><rect x="13" y="30" width="4" height="4" rx="1"/><rect x="21" y="30" width="4" height="4" rx="1"/><rect x="29" y="29" width="4" height="4" rx="1"/></g>
+     <path d="M46 31l-9 12h6.5l-3 11 10-13.5H44z" fill="#FACC15" stroke="#1E40AF" stroke-width="1.4" stroke-linejoin="round"/>` },
+  /* Video Core Prompter — product showcase video builder */
+  prompter: { name: 'Play prompter', a: '#F43F5E', b: '#881337', g:
+    `<rect x="10" y="13" width="44" height="31" rx="5" fill="${W}"/>
+     <circle cx="32" cy="28.5" r="9" fill="#FFE4E6"/><path d="M29 23.5l8.5 5-8.5 5z" fill="#E11D48"/>
+     <path d="M17 50h30M22 55.5h20" stroke="${W}" stroke-width="3" stroke-linecap="round" opacity=".9"/>
+     <circle cx="15.5" cy="18.5" r="2" fill="#F43F5E"/>` },
+  /* Prasant Studio — prompt + reference pack for Gemini */
+  studio: { name: 'AI sparkle', a: '#22D3EE', b: '#7C3AED', g:
+    `${spark(30, 30, 17, W)}${spark(48, 46, 7, '#FDE68A')}${spark(15, 47, 4.5, '#E0F2FE')}${spark(49, 14, 3.5, W)}
+     <circle cx="30" cy="30" r="3.2" fill="#7C3AED"/>` },
+  /* this index — every link in one place */
+  index: { name: 'Link grid', a: '#1E45E8', b: '#7A3FE0', g:
+    `<rect x="12" y="12" width="17" height="17" rx="5" fill="${W}"/><rect x="35" y="12" width="17" height="17" rx="8.5" fill="#C9F2EA"/>
+     <rect x="12" y="35" width="17" height="17" rx="8.5" fill="#E5D8FF"/><rect x="35" y="35" width="17" height="17" rx="5" fill="${W}"/>
+     <path d="M17.5 23.5l6-6M19 17.5h4.5V22" stroke="#1E45E8" stroke-width="2.4" ${RC}/>
+     <path d="M40 43.5l2.6 2.6 5-5.2" stroke="#7A3FE0" stroke-width="2.4" ${RC}/>` },
+  /* I2P — image to prompt studio */
+  i2p: { name: 'Photo → prompt', a: '#2DD4BF', b: '#4F46E5', g:
+    `<rect x="7" y="17" width="23" height="21" rx="3.5" fill="${W}"/>
+     <path d="M9.5 35.5l6-7.5 4 4.5 3-3 5 6z" fill="#14B8A6"/><circle cx="24" cy="23" r="2.4" fill="#FACC15"/>
+     <path d="M33 27.5h6M36.5 24.5l3 3-3 3" stroke="${W}" stroke-width="2.6" ${RC}/>
+     <path d="M43 20h13M43 26h10M43 32h13M43 38h7" stroke="${W}" stroke-width="2.8" stroke-linecap="round"/>
+     <text x="32" y="54" text-anchor="middle" font-family="Archivo,Arial,sans-serif" font-weight="800" font-size="10" fill="${W}" letter-spacing="1">I2P</text>` },
+  /* restaurant info → shot-by-shot film brief */
+  restaurant: { name: 'Film cloche', a: '#FACC15', b: '#B91C1C', g:
+    `<circle cx="32" cy="17" r="3" fill="${W}"/>
+     <path d="M13 41a19 19 0 0 1 38 0z" fill="${W}"/>
+     <path d="M9 44.5h46" stroke="${W}" stroke-width="3.6" stroke-linecap="round"/>
+     <path d="M28.5 26.5l9.5 5.8-9.5 5.8z" fill="#DC2626"/>
+     <path d="M12 51.5h40" stroke="${W}" stroke-width="3" stroke-dasharray="3.5 3.5" opacity=".85"/>
+     <path d="M19 30c1-3 3-5.5 6-7" stroke="#FDE68A" stroke-width="2.2" ${RC}/>` },
+};
+
+/* Guess a built-in logo for a new site from its name and link. */
+const LOGO_HINTS = [
+  [/pptx|powerpoint|slide|deck/, 'pptx'], [/pdf|convert/, 'pdf'], [/bg|background|remov/, 'bgremove'],
+  [/nfc|tap/, 'nfc'], [/invent|stock|scan/, 'inventory'], [/cv|resume|résumé/, 'cv'],
+  [/vet|clinic/, 'vet'], [/present/, 'petdeck'], [/pet|coco|paw/, 'petapp'], [/check|todo|task/, 'checklist'],
+  [/vintage|cloth|shop|store/, 'vintage'], [/qr/, 'qrgen'], [/restaurant|food|menu/, 'restaurant'],
+  [/i2p|image.?to/, 'i2p'], [/video|film|reel|prompter/, 'prompter'], [/gesture|sign/, 'gesture'],
+  [/studio|ai|prompt/, 'studio'], [/bio|about|me\b/, 'bio'], [/links|index/, 'index'],
+];
+function guessLogo(site){
+  const hay = (site.name + ' ' + site.url).toLowerCase();
+  for (const [re, id] of LOGO_HINTS) if (re.test(hay)) return id;
+  return '';
+}
+
+const CAT_COLORS = { Personal: ['#A77BFF', '#5A22B8'], Work: ['#2FCBB5', '#08695D'], Business: ['#5B7CFF', '#1233B8'] };
+let logoSeq = 0;
+
+/* Set to true once you have generated PNG logos into a "logos" folder next to this file
+   (make_logos_comfyui.py does this for you). Each built-in logo then shows logos/<name>.png,
+   and quietly falls back to the drawn version if the image is missing. */
+const USE_IMAGE_LOGOS = false;
+
+/* Returns the SVG (or <img>) for a site's logo. Unknown → a bright monogram tile. */
+function logoSVG(site){
+  const key = site.logo || '';
+  if (USE_IMAGE_LOGOS && LOGOS[key]) {
+    return `<span class="lg-stack">${logoVector(site)}<img src="logos/${key}.png" alt="" loading="lazy" onerror="this.remove()"></span>`;
+  }
+  return logoVector(site);
+}
+
+function logoVector(site){
+  const key = site.logo || '';
+  if (key && !LOGOS[key]) {                      // a file path, e.g. "logos/pptx.png"
+    return `<img src="${esc(key)}" alt="" width="64" height="64" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;display:block">`;
+  }
+  const L = LOGOS[key];
+  const uid = 'lg' + (++logoSeq);
+  let a, b, g;
+  if (L) { a = L.a; b = L.b; g = L.g; }
+  else {
+    [a, b] = CAT_COLORS[site.cat] || CAT_COLORS.Business;
+    const words = String(site.name).replace(/[^\p{L}\p{N} ]/gu, ' ').trim().split(/\s+/).filter(Boolean);
+    const ini = (words.length > 1 ? words[0][0] + words[1][0] : (words[0] || '?').slice(0, 2)).toUpperCase();
+    g = `<text x="32" y="41.5" text-anchor="middle" font-family="Archivo,Arial,sans-serif" font-weight="800" font-size="24" fill="#fff" letter-spacing="-.5">${esc(ini)}</text>${spark(51, 13, 5, 'rgba(255,255,255,.85)')}`;
+  }
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true">` +
+    `<defs><linearGradient id="${uid}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${a}"/><stop offset="1" stop-color="${b}"/></linearGradient>` +
+    `<clipPath id="${uid}c"><rect width="64" height="64" rx="15"/></clipPath></defs>` +
+    `<g clip-path="url(#${uid}c)"><rect width="64" height="64" fill="url(#${uid})"/>` +
+    `<ellipse cx="22" cy="6" rx="30" ry="14" fill="#fff" opacity=".13"/>` + g + `</g></svg>`;
+}
+
 
 
 
@@ -686,7 +1015,24 @@ const emptyEl = document.getElementById('empty');
 let filterCat = 'all';
 let query = '';
 
+/* masthead: brand logo + index logo that flips over to reveal its QR code */
+const INDEX_SITE = { name: 'Site Index', cat: 'Personal', logo: 'index' };
+document.getElementById('brand-logo').innerHTML = logoSVG(INDEX_SITE);
+document.getElementById('mast-logo').innerHTML = logoSVG(INDEX_SITE);
 document.getElementById('mast-qr-img').innerHTML = QR.svg(MASTER_URL, { ec: 'M', quiet: 2 });
+document.getElementById('mast-qr').addEventListener('click', e => {
+  const b = e.currentTarget, on = b.getAttribute('aria-pressed') !== 'true';
+  b.setAttribute('aria-pressed', String(on));
+  b.setAttribute('aria-label', on ? 'Show the logo again' : 'Show the QR code for this index');
+  document.getElementById('mast-qr-cap').textContent = on ? 'Scan to open this index · tap to flip back' : 'Tap to show the QR code for this index';
+});
+
+const ICON = {
+  open: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>',
+  edit: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></svg>',
+  qr:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="3.5" y="3.5" width="6.5" height="6.5" rx="1"/><rect x="14" y="3.5" width="6.5" height="6.5" rx="1"/><rect x="3.5" y="14" width="6.5" height="6.5" rx="1"/><path d="M14 14h2.5v2.5H14zM18 18h2.5v2.5H18zM14 19v1.5M20.5 14v1.5" stroke-linecap="round"/></svg>',
+  dots: '<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2.2"/><circle cx="12" cy="12" r="2.2"/><circle cx="19" cy="12" r="2.2"/></svg>',
+};
 
 function esc(s){ return String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
 
@@ -694,7 +1040,11 @@ function cardHTML(site, i){
   return `<article class="card" data-cat="${esc(site.cat)}" data-i="${i}">
     <button class="rm" type="button" title="Remove ${esc(site.name)}" aria-label="Remove ${esc(site.name)}">&times;</button>
     <div class="card-top">
-      <div class="qr" role="img" aria-label="Code for ${esc(site.name)}" tabindex="0">${QR.svg(site.url, { ec:'M', quiet:2, fg:'#141A2B' })}</div>
+      <div class="logo-wrap">
+        <button class="logo" type="button" aria-haspopup="menu" aria-expanded="false"
+          title="Tap for options · double-tap to open" aria-label="${esc(site.name)}: options (double-tap to open)">${logoSVG(site)}</button>
+        <button class="dots" type="button" tabindex="-1" aria-hidden="true">${ICON.dots}</button>
+      </div>
       <div class="meta">
         <h3>${esc(site.name)}</h3>
         <span class="tag" data-cat="${esc(site.cat)}">${esc(site.cat)}</span>
@@ -747,26 +1097,95 @@ document.getElementById('q').addEventListener('input', e => {
   render();
 });
 
+/* copy text to the clipboard, with a fallback for older browsers / plain http */
+function copyText(text, btn, label){
+  const done = () => { btn.textContent = 'Copied'; btn.dataset.done = '1';
+    setTimeout(() => { btn.textContent = label; btn.dataset.done = ''; }, 1400); };
+  const fallback = () => {
+    const t = document.createElement('textarea');
+    t.value = text; t.style.position = 'fixed'; t.style.opacity = '0';
+    document.body.appendChild(t); t.select();
+    try { document.execCommand('copy'); } catch (err) {}
+    document.body.removeChild(t); done();
+  };
+  if (navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(text).then(done, fallback);
+  } else fallback();
+}
+
+/* ---------- logo: tap = options menu, double-tap = open the site ---------- */
+const DOUBLE_MS = 300;
+let tapTimer = null, lastTap = { card: null, t: 0 };
+
+function siteOf(card){ return SITES[+card.dataset.i]; }
+
+function launch(card){
+  const logo = card.querySelector('.logo');
+  logo.classList.remove('launch'); void logo.offsetWidth; logo.classList.add('launch');
+  card.querySelector('a.open').click();          // a real link click: never popup-blocked
+}
+
+function closeMenus(){
+  document.querySelectorAll('.menu').forEach(m => {
+    const lg = m.parentElement.querySelector('.logo');
+    if (lg) lg.setAttribute('aria-expanded', 'false');
+    m.remove();
+  });
+}
+
+function toggleMenu(card, focusFirst){
+  const wrap = card.querySelector('.logo-wrap');
+  const had = wrap.querySelector('.menu');
+  closeMenus(); clearConfirms();
+  if (had) return;
+  const s = siteOf(card);
+  wrap.insertAdjacentHTML('beforeend',
+    `<div class="menu" role="menu" aria-label="${esc(s.name)} options">
+      <button type="button" role="menuitem" data-act="open">${ICON.open}Open website</button>
+      <button type="button" role="menuitem" data-act="edit">${ICON.edit}Edit</button>
+      <button type="button" role="menuitem" data-act="qr">${ICON.qr}QR code &amp; link</button>
+      <p class="hint">Tip: double-tap the logo to open the site straight away.</p>
+    </div>`);
+  wrap.querySelector('.logo').setAttribute('aria-expanded', 'true');
+  if (focusFirst) wrap.querySelector('.menu button').focus();
+}
+
 listEl.addEventListener('click', e => {
-  const btn = e.target.closest('.copy');
-  if (btn){
-    const text = btn.dataset.url;
-    const done = () => { btn.textContent = 'Copied'; btn.dataset.done = '1';
-      setTimeout(() => { btn.textContent = 'Copy'; btn.dataset.done = ''; }, 1400); };
-    const fallback = () => {
-      const t = document.createElement('textarea');
-      t.value = text; t.style.position = 'fixed'; t.style.opacity = '0';
-      document.body.appendChild(t); t.select();
-      try { document.execCommand('copy'); } catch (err) {}
-      document.body.removeChild(t); done();
-    };
-    if (navigator.clipboard && window.isSecureContext){
-      navigator.clipboard.writeText(text).then(done, fallback);
-    } else fallback();
+  /* the ⋯ badge opens the menu instantly */
+  const dots = e.target.closest('.dots');
+  if (dots){ clearTimeout(tapTimer); toggleMenu(dots.closest('.card')); return; }
+
+  /* the logo: wait a moment to see if a second tap follows */
+  const logo = e.target.closest('.logo');
+  if (logo){
+    const card = logo.closest('.card'), now = Date.now();
+    clearTimeout(tapTimer);
+    if (lastTap.card === card && now - lastTap.t < DOUBLE_MS){
+      lastTap = { card: null, t: 0 };
+      closeMenus(); launch(card);
+      return;
+    }
+    lastTap = { card, t: now };
+    if (e.detail === 0){ toggleMenu(card, true); return; }      // keyboard Enter / Space
+    tapTimer = setTimeout(() => toggleMenu(card), DOUBLE_MS);
     return;
   }
+
+  const item = e.target.closest('.menu [data-act]');
+  if (item){
+    const card = item.closest('.card'), act = item.dataset.act;
+    closeMenus();
+    if (act === 'open') launch(card);
+    else if (act === 'edit') openEditor(card);
+    else openLightbox(card);
+    return;
+  }
+
+  const btn = e.target.closest('.copy');
+  if (btn){ copyText(btn.dataset.url, btn, 'Copy'); return; }
+
   const rm = e.target.closest('.rm');
-  if (rm){ askRemove(rm.closest('.card')); return; }
+  if (rm){ closeMenus(); askRemove(rm.closest('.card')); return; }
 
   const cancel = e.target.closest('.confirm .no');
   if (cancel){ cancel.closest('.confirm').remove(); return; }
@@ -774,8 +1193,30 @@ listEl.addEventListener('click', e => {
   const yes = e.target.closest('.confirm .yes');
   if (yes){ removeSite(+yes.closest('.card').dataset.i); return; }
 
-  const qr = e.target.closest('.qr');
-  if (qr) openLightbox(qr.closest('.card'));
+  const edCancel = e.target.closest('.editor .ed-cancel');
+  if (edCancel){ closeEditor(edCancel.closest('.card'), true); return; }
+
+  const edSave = e.target.closest('.editor .save');
+  if (edSave){ saveEdit(edSave.closest('.card')); return; }
+});
+
+/* a tap anywhere else closes an open menu */
+document.addEventListener('click', e => {
+  if (!e.target.closest('.logo-wrap')) closeMenus();
+});
+
+/* arrow keys move through the menu */
+listEl.addEventListener('keydown', e => {
+  const menu = e.target.closest('.menu');
+  if (menu && (e.key === 'ArrowDown' || e.key === 'ArrowUp')){
+    e.preventDefault();
+    const items = [...menu.querySelectorAll('button')];
+    const i = items.indexOf(document.activeElement);
+    items[(i + (e.key === 'ArrowDown' ? 1 : -1) + items.length) % items.length].focus();
+  }
+  if (e.key === 'Enter' && e.target.closest('.editor') && e.target.tagName === 'INPUT'){
+    e.preventDefault(); saveEdit(e.target.closest('.card'));
+  }
 });
 
 /* ---------- remove, with a confirm step and an undo ---------- */
@@ -783,7 +1224,7 @@ function clearConfirms(){ document.querySelectorAll('.confirm').forEach(c => c.r
 
 function askRemove(card){
   clearConfirms();
-  const s = SITES[+card.dataset.i];
+  const s = siteOf(card);
   const box = document.createElement('div');
   box.className = 'confirm';
   box.innerHTML = `<p>Remove <b>${esc(s.name)}</b> from the list?</p>
@@ -798,44 +1239,142 @@ function askRemove(card){
 let undoState = null, toastTimer = null;
 const toast = document.getElementById('toast');
 
-function removeSite(i){
-  const site = SITES[i];
-  undoState = { site, index: i };
-  SITES.splice(i, 1);
-  render();
-  document.getElementById('toast-msg').textContent =
-    `Removed “${site.name}”. Download the file to make it permanent.`;
+function showToast(msg){
+  document.getElementById('toast-msg').textContent = msg;
   toast.classList.add('show');
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => { toast.classList.remove('show'); undoState = null; }, 9000);
 }
 
+function removeSite(i){
+  const site = SITES[i];
+  undoState = { type: 'remove', site, index: i };
+  SITES.splice(i, 1);
+  render();
+  showToast(`Removed “${site.name}”. Download the file to make it permanent.`);
+}
+
 document.getElementById('toast-undo').addEventListener('click', () => {
   if (!undoState) return;
-  SITES.splice(undoState.index, 0, undoState.site);
+  if (undoState.type === 'remove') SITES.splice(undoState.index, 0, undoState.site);
+  else if (undoState.type === 'edit') SITES[undoState.index] = undoState.prev;
   undoState = null;
   toast.classList.remove('show');
   render();
 });
 
-listEl.addEventListener('keydown', e => {
-  if ((e.key === 'Enter' || e.key === ' ') && e.target.classList.contains('qr')){
-    e.preventDefault(); openLightbox(e.target.closest('.card'));
-  }
-});
+/* ---------- edit a site in place ---------- */
+function openEditor(card){
+  clearConfirms();
+  closeEditor(card);
+  const s = siteOf(card);
+  const cats = ['Business', 'Work', 'Personal']
+    .map(c => `<option${c === s.cat ? ' selected' : ''}>${c}</option>`).join('');
+  let logos = `<option value="">Automatic</option>` + Object.keys(LOGOS)
+    .map(k => `<option value="${k}"${k === s.logo ? ' selected' : ''}>${esc(LOGOS[k].name)}</option>`).join('');
+  if (s.logo && !LOGOS[s.logo]) logos += `<option value="${esc(s.logo)}" selected>Image: ${esc(s.logo)}</option>`;
 
+  const box = document.createElement('div');
+  box.className = 'editor';
+  box.setAttribute('role', 'group');
+  box.setAttribute('aria-label', 'Edit ' + s.name);
+  box.innerHTML = `<h4><span class="mini">${logoSVG(s)}</span>Edit site</h4>
+    <label>Name<input class="ed-name" type="text" value="${esc(s.name)}"></label>
+    <label>Link<input class="ed-url" type="url" value="${esc(s.url)}"></label>
+    <div class="row2">
+      <label>Category<select class="ed-cat">${cats}</select></label>
+      <label>Logo<select class="ed-logo">${logos}</select></label>
+    </div>
+    <p class="ed-err" hidden></p>
+    <div class="ed-btns"><button class="save" type="button">Save</button><button class="ed-cancel" type="button">Cancel</button></div>`;
+  card.classList.add('editing');
+  card.appendChild(box);
+
+  /* live preview of the logo while choosing */
+  const preview = () => {
+    const pick = box.querySelector('.ed-logo').value;
+    const draft = { name: box.querySelector('.ed-name').value || s.name, url: box.querySelector('.ed-url').value,
+      cat: box.querySelector('.ed-cat').value };
+    draft.logo = pick || guessLogo(draft);
+    box.querySelector('.mini').innerHTML = logoSVG(draft);
+  };
+  box.querySelector('.ed-logo').addEventListener('change', preview);
+  box.querySelector('.ed-cat').addEventListener('change', preview);
+  box.querySelector('.ed-name').addEventListener('input', preview);
+  box.querySelector('.ed-name').focus();
+}
+
+function closeEditor(card, refocus){
+  const ed = card.querySelector('.editor');
+  if (ed) ed.remove();
+  card.classList.remove('editing');
+  if (refocus) card.querySelector('.logo').focus();
+}
+
+function saveEdit(card){
+  const box = card.querySelector('.editor'); if (!box) return;
+  const i = +card.dataset.i, s = SITES[i];
+  const name = box.querySelector('.ed-name').value.trim();
+  let url = box.querySelector('.ed-url').value.trim();
+  const err = box.querySelector('.ed-err');
+  if (!name || !url){ err.textContent = 'A name and a link are both needed.'; err.hidden = false; return; }
+  if (!/^https?:\/\//i.test(url)) url = 'https://' + url;
+
+  undoState = { type: 'edit', index: i, prev: { ...s } };
+  const next = { ...s, name, url, cat: box.querySelector('.ed-cat').value };
+  const pick = box.querySelector('.ed-logo').value;
+  next.logo = pick || guessLogo(next);
+  if (!next.logo) delete next.logo;
+  SITES[i] = next;
+  render();
+  showToast(`Saved “${name}”. Download the file to make it permanent.`);
+}
+
+/* ---------- QR code + link popup ---------- */
 const lb = document.getElementById('lightbox');
+let lbReturn = null;
 function openLightbox(card){
-  const s = SITES[+card.dataset.i];
+  const s = siteOf(card);
+  lbReturn = card.querySelector('.logo');
+  document.getElementById('lb-logo').innerHTML = logoSVG(s);
   document.getElementById('lb-img').innerHTML = QR.svg(s.url, { ec:'M', quiet:2, fg:'#141A2B' });
   document.getElementById('lb-name').textContent = s.name;
   document.getElementById('lb-url').textContent = s.url;
+  document.getElementById('lb-open').href = s.url;
+  const cp = document.getElementById('lb-copy');
+  cp.dataset.url = s.url; cp.textContent = 'Copy link'; cp.dataset.done = '';
   lb.classList.add('show');
+  document.getElementById('lb-close').focus();
 }
-lb.addEventListener('click', () => lb.classList.remove('show'));
+function closeLightbox(){
+  if (!lb.classList.contains('show')) return;
+  lb.classList.remove('show');
+  if (lbReturn && document.body.contains(lbReturn)) lbReturn.focus();
+}
+lb.addEventListener('click', e => { if (e.target === lb) closeLightbox(); });
+document.getElementById('lb-close').addEventListener('click', closeLightbox);
+document.getElementById('lb-copy').addEventListener('click', e => copyText(e.currentTarget.dataset.url, e.currentTarget, 'Copy link'));
+
 document.addEventListener('keydown', e => {
-  if (e.key === 'Escape'){ lb.classList.remove('show'); clearConfirms(); }
+  if (e.key !== 'Escape') return;
+  const openMenu = document.querySelector('.menu');
+  if (openMenu){ const lg = openMenu.parentElement.querySelector('.logo'); closeMenus(); lg.focus(); return; }
+  const ed = document.querySelector('.editor');
+  if (ed){ closeEditor(ed.closest('.card'), true); return; }
+  closeLightbox(); clearConfirms();
 });
+
+/* ---------- printing: swap logos for scannable QR codes ---------- */
+window.addEventListener('beforeprint', () => {
+  document.querySelectorAll('.card').forEach(card => {
+    if (card.querySelector('.qr-print')) return;
+    const d = document.createElement('div');
+    d.className = 'qr-print';
+    d.innerHTML = QR.svg(siteOf(card).url, { ec:'M', quiet:2, fg:'#000' });
+    card.querySelector('.logo-wrap').appendChild(d);
+  });
+});
+window.addEventListener('afterprint', () => document.querySelectorAll('.qr-print').forEach(q => q.remove()));
 
 /* ---------- add a site ---------- */
 document.getElementById('add-btn').addEventListener('click', () => {
@@ -851,11 +1390,14 @@ document.getElementById('add-btn').addEventListener('click', () => {
   }
   if (!/^https?:\/\//i.test(url)) url = 'https://' + url;
 
-  SITES.push({ name, cat, url });
+  const site = { name, cat, url };
+  const lg = guessLogo(site); if (lg) site.logo = lg;
+  SITES.push(site);
   render();
   snip.textContent =
     'Added. Download the updated file below to keep it, or paste this line into the SITES list by hand:\n\n' +
-    `  { name: "${name}", cat: "${cat}", url: "${url}" },`;
+    '  { ' + ['name: ' + JSON.stringify(name), 'cat: ' + JSON.stringify(cat), 'url: ' + JSON.stringify(url)]
+      .concat(site.logo ? ['logo: ' + JSON.stringify(site.logo)] : []).join(', ') + ' },';
   snip.classList.add('show');
   document.getElementById('add-name').value = '';
   document.getElementById('add-url').value = '';
@@ -869,6 +1411,7 @@ function sitesLiteral(){
     parts.push('name: ' + JSON.stringify(s.name));
     parts.push('cat: ' + JSON.stringify(s.cat));
     parts.push('url: ' + JSON.stringify(s.url));
+    if (s.logo) parts.push('logo: ' + JSON.stringify(s.logo));
     if (s.note) parts.push('note: ' + JSON.stringify(s.note));
     return '  { ' + parts.join(', ') + ' },';
   });
@@ -879,7 +1422,7 @@ function buildFile(){
   const doc = document.documentElement.cloneNode(true);
 
   // clear anything this page drew at runtime, so the saved file starts clean
-  ['list', 'mast-qr-img', 'lb-img', 'lb-name', 'lb-url', 'snippet'].forEach(id => {
+  ['list', 'mast-qr-img', 'mast-logo', 'brand-logo', 'lb-img', 'lb-logo', 'lb-name', 'lb-url', 'snippet'].forEach(id => {
     const el = doc.querySelector('#' + id); if (el) el.innerHTML = '';
   });
   const sn = doc.querySelector('#snippet'); if (sn) sn.classList.remove('show');
@@ -888,7 +1431,11 @@ function buildFile(){
   const emp = doc.querySelector('#empty'); if (emp) emp.setAttribute('hidden', '');
   const tst = doc.querySelector('#toast');
   if (tst){ tst.classList.remove('show'); const tm = tst.querySelector('#toast-msg'); if (tm) tm.textContent = ''; }
-  doc.querySelectorAll('.confirm').forEach(c => c.remove());
+  doc.querySelectorAll('.confirm, .menu, .editor, .qr-print').forEach(c => c.remove());
+  const mq = doc.querySelector('#mast-qr');
+  if (mq){ mq.setAttribute('aria-pressed', 'false'); mq.setAttribute('aria-label', 'Show the QR code for this index'); }
+  const mc = doc.querySelector('#mast-qr-cap'); if (mc) mc.textContent = 'Tap to show the QR code for this index';
+  const lo = doc.querySelector('#lb-open'); if (lo) lo.setAttribute('href', '#');
   doc.querySelectorAll('.chip').forEach(c => c.setAttribute('aria-pressed', String(c.dataset.cat === 'all')));
   ['add-name', 'add-url', 'q'].forEach(id => {
     const el = doc.querySelector('#' + id); if (el) el.setAttribute('value', '');
